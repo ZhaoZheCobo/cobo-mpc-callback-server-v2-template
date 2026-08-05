@@ -5,112 +5,112 @@
   "status": "Completed",
   "initiator_type": "External",
   "source": {
-      "source_type": "Org-Controlled",
-      "wallet_id": "e70d4589-62d6-43b0-be72-425e920f8fa7",
-      "address": "0xd0ab4e9cac1cf79b35b886e1066b58806e64839f",
-      "included_utxos": null,
-      "excluded_utxos": null,
-      "signer_key_share_holder_group_id": "74d1f6d1-c1bf-4e67-b424-72270291ef87"
+    "source_type": "Org-Controlled",
+    "wallet_id": "e70d4589-62d6-43b0-be72-425e920f8fa7",
+    "address": "0xd0ab4e9cac1cf79b35b886e1066b58806e64839f",
+    "included_utxos": null,
+    "excluded_utxos": null,
+    "signer_key_share_holder_group_id": "74d1f6d1-c1bf-4e67-b424-72270291ef87"
   },
   "destination": {
-      "destination_type": "EVM_EIP_712_Signature",
-      "structured_data": {
-          "types": {
-              "EIP712Domain": [
-                  {
-                      "name": "chainId",
-                      "type": "uint256"
-                  },
-                  {
-                      "name": "verifyingContract",
-                      "type": "address"
-                  }
-              ],
-              "SafeTx": [
-                  {
-                      "name": "to",
-                      "type": "address"
-                  },
-                  {
-                      "name": "value",
-                      "type": "uint256"
-                  },
-                  {
-                      "name": "data",
-                      "type": "bytes"
-                  },
-                  {
-                      "name": "operation",
-                      "type": "uint8"
-                  },
-                  {
-                      "name": "safeTxGas",
-                      "type": "uint256"
-                  },
-                  {
-                      "name": "baseGas",
-                      "type": "uint256"
-                  },
-                  {
-                      "name": "gasPrice",
-                      "type": "uint256"
-                  },
-                  {
-                      "name": "gasToken",
-                      "type": "address"
-                  },
-                  {
-                      "name": "refundReceiver",
-                      "type": "address"
-                  },
-                  {
-                      "name": "nonce",
-                      "type": "uint256"
-                  }
-              ]
+    "destination_type": "EVM_EIP_712_Signature",
+    "structured_data": {
+      "types": {
+        "EIP712Domain": [
+          {
+            "name": "chainId",
+            "type": "uint256"
           },
-          "domain": {
-              "chainId": "0x1",
-              "verifyingContract": "0x193FBEf6230867a3a64012916a8710BF25E7118f"
-          },
-          "primaryType": "SafeTx",
-          "message": {
-              "to": "0x193FBEf6230867a3a64012916a8710BF25E7118f",
-              "value": "0",
-              "data": "0x",
-              "operation": 0,
-              "safeTxGas": "0",
-              "baseGas": "0",
-              "gasPrice": "0",
-              "gasToken": "0x0000000000000000000000000000000000000000",
-              "refundReceiver": "0x0000000000000000000000000000000000000000",
-              "nonce": "6"
+          {
+            "name": "verifyingContract",
+            "type": "address"
           }
-      },
-      "raw_structured_data": "{\"types\": {\"EIP712Domain\": [{\"name\": \"chainId\", \"type\": \"uint256\"}, {\"name\": \"verifyingContract\", \"type\": \"address\"}], \"SafeTx\": [{\"name\": \"to\", \"type\": \"address\"}, {\"name\": \"value\", \"type\": \"uint256\"}, {\"name\": \"data\", \"type\": \"bytes\"}, {\"name\": \"operation\", \"type\": \"uint8\"}, {\"name\": \"safeTxGas\", \"type\": \"uint256\"}, {\"name\": \"baseGas\", \"type\": \"uint256\"}, {\"name\": \"gasPrice\", \"type\": \"uint256\"}, {\"name\": \"gasToken\", \"type\": \"address\"}, {\"name\": \"refundReceiver\", \"type\": \"address\"}, {\"name\": \"nonce\", \"type\": \"uint256\"}]}, \"domain\": {\"chainId\": \"0x1\", \"verifyingContract\": \"0x193FBEf6230867a3a64012916a8710BF25E7118f\"}, \"primaryType\": \"SafeTx\", \"message\": {\"to\": \"0x193FBEf6230867a3a64012916a8710BF25E7118f\", \"value\": \"0\", \"data\": \"0x\", \"operation\": 0, \"safeTxGas\": \"0\", \"baseGas\": \"0\", \"gasPrice\": \"0\", \"gasToken\": \"0x0000000000000000000000000000000000000000\", \"refundReceiver\": \"0x0000000000000000000000000000000000000000\", \"nonce\": \"6\"}}",
-      "safe_tx_extra_data": {
-          "to": "0x193FBEf6230867a3a64012916a8710BF25E7118f",
-          "value": "0 ETH",
-          "data": "0x",
-          "domain_hash": "0x1c24d39489a22d18ffebc80e35db66a5e5e7fa898549cbd2c06ae148aaf6a73e",
-          "message_hash": "0x00a3adacac0badb2fa31b5ec25f1c8b5a047c150dfa2ebead02ab3ad6abee4c9",
-          "safe_address": "0x193FBEf6230867a3a64012916a8710BF25E7118f",
-          "safe_tx_hash": "0xbf871d82bf18935628e796c1122267fabb970617c8ddf51bb6d526cabd7a3df4",
-          "safe_nonce": 6,
-          "operation": "Call",
-          "gas_token_addr": "0x0000000000000000000000000000000000000000",
-          "safe_tx_gas": 0,
-          "base_gas": 0,
-          "gas_price": "0",
-          "refund_receiver": "0x0000000000000000000000000000000000000000",
-          "to_contract_name": "SafeProxy",
-          "decoded_data": {
-              "method": "On-chain rejection",
-              "parameters": []
+        ],
+        "SafeTx": [
+          {
+            "name": "to",
+            "type": "address"
           },
-          "signature": "0x44909ed82377999a9ce7ff79b664e0b583d405897689254217fb605631b848125df3b5f8543440187baf26829d0e47085123d85adde59e1ce9378e39395415c81b",
-          "wei": "0"
+          {
+            "name": "value",
+            "type": "uint256"
+          },
+          {
+            "name": "data",
+            "type": "bytes"
+          },
+          {
+            "name": "operation",
+            "type": "uint8"
+          },
+          {
+            "name": "safeTxGas",
+            "type": "uint256"
+          },
+          {
+            "name": "baseGas",
+            "type": "uint256"
+          },
+          {
+            "name": "gasPrice",
+            "type": "uint256"
+          },
+          {
+            "name": "gasToken",
+            "type": "address"
+          },
+          {
+            "name": "refundReceiver",
+            "type": "address"
+          },
+          {
+            "name": "nonce",
+            "type": "uint256"
+          }
+        ]
+      },
+      "domain": {
+        "chainId": "0x1",
+        "verifyingContract": "0x193FBEf6230867a3a64012916a8710BF25E7118f"
+      },
+      "primaryType": "SafeTx",
+      "message": {
+        "to": "0x193FBEf6230867a3a64012916a8710BF25E7118f",
+        "value": "0",
+        "data": "0x",
+        "operation": 0,
+        "safeTxGas": "0",
+        "baseGas": "0",
+        "gasPrice": "0",
+        "gasToken": "0x0000000000000000000000000000000000000000",
+        "refundReceiver": "0x0000000000000000000000000000000000000000",
+        "nonce": "6"
       }
+    },
+    "raw_structured_data": "{\"types\": {\"EIP712Domain\": [{\"name\": \"chainId\", \"type\": \"uint256\"}, {\"name\": \"verifyingContract\", \"type\": \"address\"}], \"SafeTx\": [{\"name\": \"to\", \"type\": \"address\"}, {\"name\": \"value\", \"type\": \"uint256\"}, {\"name\": \"data\", \"type\": \"bytes\"}, {\"name\": \"operation\", \"type\": \"uint8\"}, {\"name\": \"safeTxGas\", \"type\": \"uint256\"}, {\"name\": \"baseGas\", \"type\": \"uint256\"}, {\"name\": \"gasPrice\", \"type\": \"uint256\"}, {\"name\": \"gasToken\", \"type\": \"address\"}, {\"name\": \"refundReceiver\", \"type\": \"address\"}, {\"name\": \"nonce\", \"type\": \"uint256\"}]}, \"domain\": {\"chainId\": \"0x1\", \"verifyingContract\": \"0x193FBEf6230867a3a64012916a8710BF25E7118f\"}, \"primaryType\": \"SafeTx\", \"message\": {\"to\": \"0x193FBEf6230867a3a64012916a8710BF25E7118f\", \"value\": \"0\", \"data\": \"0x\", \"operation\": 0, \"safeTxGas\": \"0\", \"baseGas\": \"0\", \"gasPrice\": \"0\", \"gasToken\": \"0x0000000000000000000000000000000000000000\", \"refundReceiver\": \"0x0000000000000000000000000000000000000000\", \"nonce\": \"6\"}}",
+    "safe_tx_extra_data": {
+      "to": "0x193FBEf6230867a3a64012916a8710BF25E7118f",
+      "value": "0 ETH",
+      "data": "0x",
+      "domain_hash": "0x1c24d39489a22d18ffebc80e35db66a5e5e7fa898549cbd2c06ae148aaf6a73e",
+      "message_hash": "0x00a3adacac0badb2fa31b5ec25f1c8b5a047c150dfa2ebead02ab3ad6abee4c9",
+      "safe_address": "0x193FBEf6230867a3a64012916a8710BF25E7118f",
+      "safe_tx_hash": "0xbf871d82bf18935628e796c1122267fabb970617c8ddf51bb6d526cabd7a3df4",
+      "safe_nonce": 6,
+      "operation": "Call",
+      "gas_token_addr": "0x0000000000000000000000000000000000000000",
+      "safe_tx_gas": 0,
+      "base_gas": 0,
+      "gas_price": "0",
+      "refund_receiver": "0x0000000000000000000000000000000000000000",
+      "to_contract_name": "SafeProxy",
+      "decoded_data": {
+        "method": "On-chain rejection",
+        "parameters": []
+      },
+      "signature": "0x44909ed82377999a9ce7ff79b664e0b583d405897689254217fb605631b848125df3b5f8543440187baf26829d0e47085123d85adde59e1ce9378e39395415c81b",
+      "wei": "0"
+    }
   },
   "created_timestamp": 1753243300988,
   "updated_timestamp": 1753252204434,
@@ -122,8 +122,8 @@
   "token_id": "ETH",
   "asset_id": "ETH",
   "result": {
-      "signature": "0x44909ed82377999a9ce7ff79b664e0b583d405897689254217fb605631b848125df3b5f8543440187baf26829d0e47085123d85adde59e1ce9378e39395415c81b",
-      "result_type": "Signature"
+    "signature": "0x44909ed82377999a9ce7ff79b664e0b583d405897689254217fb605631b848125df3b5f8543440187baf26829d0e47085123d85adde59e1ce9378e39395415c81b",
+    "result_type": "Signature"
   },
   "fee": null,
   "initiator": null,
@@ -132,85 +132,85 @@
   "transaction_hash": null,
   "block_info": null,
   "raw_tx_info": {
-      "used_nonce": null,
-      "selected_utxos": [],
-      "raw_tx": "0x44909ed82377999a9ce7ff79b664e0b583d405897689254217fb605631b848125df3b5f8543440187baf26829d0e47085123d85adde59e1ce9378e39395415c81b",
-      "unsigned_raw_tx": null,
-      "utxo_change": null
+    "used_nonce": null,
+    "selected_utxos": [],
+    "raw_tx": "0x44909ed82377999a9ce7ff79b664e0b583d405897689254217fb605631b848125df3b5f8543440187baf26829d0e47085123d85adde59e1ce9378e39395415c81b",
+    "unsigned_raw_tx": null,
+    "utxo_change": null
   },
   "replacement": null,
   "fueling_info": null,
   "category": [],
   "cobo_category": [
-      "SafeTxMessage"
+    "SafeTxMessage"
   ],
   "description": "Transaction generated by cobo safe signer.",
   "is_loop": false,
   "extra": null,
   "timeline": [
-      {
-          "status": "Submitted",
-          "finished": true,
-          "finished_timestamp": 1753243300000,
-          "sub_status": ""
-      },
-      {
-          "status": "PendingAuthorization",
-          "finished": true,
-          "finished_timestamp": 1753243301003,
-          "sub_status": ""
-      },
-      {
-          "status": "PendingSignature",
-          "finished": true,
-          "finished_timestamp": 1753252202000,
-          "sub_status": "PendingSignerProcessing"
-      },
-      {
-          "status": "Completed",
-          "finished": true,
-          "finished_timestamp": 1753252203000,
-          "sub_status": ""
-      }
+    {
+      "status": "Submitted",
+      "finished": true,
+      "finished_timestamp": 1753243300000,
+      "sub_status": ""
+    },
+    {
+      "status": "PendingAuthorization",
+      "finished": true,
+      "finished_timestamp": 1753243301003,
+      "sub_status": ""
+    },
+    {
+      "status": "PendingSignature",
+      "finished": true,
+      "finished_timestamp": 1753252202000,
+      "sub_status": "PendingSignerProcessing"
+    },
+    {
+      "status": "Completed",
+      "finished": true,
+      "finished_timestamp": 1753252203000,
+      "sub_status": ""
+    }
   ],
   "org_id": "f926907c-8141-4cc2-9d12-7808590e2167",
   "from_info": "junlin_mpc_wallet_030401",
   "to_info": "",
   "calldata_info": null,
   "approvers": [
-      {
-          "name": "zhuyoucou+4006@cobo.com",
-          "status": "Approved"
-      },
-      {
-          "name": "yuqi.wang+4006@cobo.com",
-          "status": "Pending"
-      },
-      {
-          "name": "haofeng.jiang+4006@cobo.com",
-          "status": "Pending"
-      }
+    {
+      "name": "zhuyoucou+4006@cobo.com",
+      "status": "Approved"
+    },
+    {
+      "name": "yuqi.wang+4006@cobo.com",
+      "status": "Pending"
+    },
+    {
+      "name": "haofeng.jiang+4006@cobo.com",
+      "status": "Pending"
+    }
   ],
   "custodial_estimated_fee": null,
   "outbound_fee": null,
   "deferred_fee": null,
   "signers": [
-      {
-          "signer": "Cobo",
-          "status": "Signed",
-          "failed_reason": "",
-          "signer_type": 20,
-          "online": true,
-          "node_id": "coboWS6hKma2MxxobbpjB8W2SVmpBiisaBq4rxqVpWJAZpecK"
-      },
-      {
-          "signer": "node1",
-          "status": "Signed",
-          "failed_reason": "",
-          "signer_type": 31,
-          "online": true,
-          "node_id": "coboEuETKwrojcUoGWH2fxxqVp8TBA6gvAQdTaHXryegRYZHC"
-      }
+    {
+      "signer": "Cobo",
+      "status": "Signed",
+      "failed_reason": "",
+      "signer_type": 20,
+      "online": true,
+      "node_id": "coboWS6hKma2MxxobbpjB8W2SVmpBiisaBq4rxqVpWJAZpecK"
+    },
+    {
+      "signer": "node1",
+      "status": "Signed",
+      "failed_reason": "",
+      "signer_type": 31,
+      "online": true,
+      "node_id": "coboEuETKwrojcUoGWH2fxxqVp8TBA6gvAQdTaHXryegRYZHC"
+    }
   ],
   "replaced_by": null,
   "fueled_by": null,
@@ -233,13 +233,24 @@
   "is_for_sign": false,
   "header_title": "Transaction: Approver Approval",
   "show_info": {
-      "org_name": "Cobo",
-      "wallet_name": "Default wallet 08996",
-      "environment": "Prod",
-      "from_address_label": "0xAe17bB62a5dfF598ceD2671BA6E7E320ec9e460A",
-      "to_address_label": "",
-      "operation_warnings": ["High Risk"],
-      "to_warnings": ["Never Transacted Before"],
-      "action_to_warnings": ["High Risk", ""]
-  }
+    "org_name": "Cobo",
+    "wallet_name": "Default wallet 08996",
+    "environment": "Prod",
+    "from_address_label": "0xAe17bB62a5dfF598ceD2671BA6E7E320ec9e460A",
+    "to_address_label": "",
+    "operation_warnings": [
+      "High Risk"
+    ],
+    "to_warnings": [
+      "Never Transacted Before"
+    ],
+    "action_to_warnings": [
+      "High Risk",
+      ""
+    ]
+  },
+  "created_time": 1747221732,
+  "expired_time": 0,
+  "statement_uuid": "uuid-abc-123",
+  "template_version": "1.0.0"
 }

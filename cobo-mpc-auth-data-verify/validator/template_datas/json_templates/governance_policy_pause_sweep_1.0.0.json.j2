@@ -1,0 +1,86 @@
+{
+  "_theme": "structured",
+  "_biz_version": {{ template_version | toString }},
+  "header": {
+    "title": {{header_title | toString }},
+    "title_icon": "https://d.cobo.com/public/logos/business_guard_icon.png"
+  },
+  "body": {
+    "components": [
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Organization",
+            "data": {
+              "value": {{ org_name | toString }},
+              "label": {{ environment | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Initiator",
+            "data": {
+              "value": {{ initiator | toString }}
+            }
+          },
+          {
+            "_component_type": "date_time",
+            "key": "Created Time",
+            "data": {
+              "value": {{ created_time | toInt }}
+            }
+          },
+          {% if expired_time %}
+          {
+            "_component_type": "date_time",
+            "key": "Expired Time",
+            "data": {
+              "value": {{ expired_time | toInt }}
+            }
+          },
+          {% endif %}
+          {
+            "_component_type": "text",
+            "key": "Message ID",
+            "data": {
+              "value": {{ statement_uuid | toString }}
+            }
+          }
+        ]
+        },
+        {
+          "_component_type": "section",
+          "components": [
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": false,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "key": "Wallet Name",
+            "data": {
+              "value": {{ wallet_name | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": false,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "key": "Wallet Type",
+            "data": {
+              "value": {{ wallet_type | toString }}
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

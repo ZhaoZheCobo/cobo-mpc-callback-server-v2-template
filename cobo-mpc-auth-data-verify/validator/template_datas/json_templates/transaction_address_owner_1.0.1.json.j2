@@ -1,0 +1,127 @@
+{
+  "_theme": "structured",
+  "_biz_version": {{ template_version | toString }},
+  "header": {
+    "title": "[Transaction Review] Please confirm the details",
+    "title_icon": "https://d.cobo.com/public/logos/transaction_guard_icon.png"
+  },
+  "body": {
+    "components": [
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Request ID",
+            "data": {
+              "value": {{ request_id | toString }}
+            }
+          },
+          {
+            "_component_type": "date_time",
+            "key": "Created Time",
+            "data": {
+              "value": {{ created_time | toInt }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "From",
+            "data": {
+              {% if source.source_type in ["Org-Controlled","User-Controlled","Web3","Safe{Wallet}"] %}
+              {% if source.address %}
+              "value": {{ source.address | toString }}
+              {% else %}
+              "value": "Multiple addresses"
+              {% endif %}
+              {% elif source.source_type in ["Asset","Main","Sub"] %}
+              "value": {{ show_info.wallet_name | toString }}
+              {% endif %}
+            }
+          },
+          {% set has_account_output = destination.get("account_output") %}
+          {% set has_single_utxo = destination.get("utxo_outputs") and (destination.utxo_outputs | len) == 1 %}
+          {% if has_account_output or has_single_utxo %}
+          {
+            "_component_type": "text",
+            "key": "To/Interact with",
+            "data": {
+              {% if destination.get("account_output") and destination.account_output.get("memo") %}
+              "value": {{ (destination.account_output.address ~ "|" ~ destination.account_output.memo) | toString }}
+              {% elif destination.get("account_output") %}
+              "value": {{ destination.account_output.address | toString }}
+              {% else %}
+              "value": {{ destination.utxo_outputs[0].address | toString }}
+              {% endif %}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Amount",
+            "data": {
+              {% if destination.get("account_output") %}
+              "value": {{ (destination.account_output.amount ~ " " ~ token_id) | toString }}
+              {% else %}
+              "value": {{ (destination.utxo_outputs[0].amount ~ " " ~ token_id) | toString }}
+              {% endif %}
+            }
+          },
+          {% endif %}
+          {% if destination.get("utxo_outputs") and destination.utxo_outputs | len > 1 %}
+          {% for output in destination.utxo_outputs %}
+          {
+            "_component_type": "text",
+            {% if loop.index == 1 %}
+            "key": "To/Interact with",
+            {% endif %}
+            "data": {
+              "value": {{ output.address | toString }},
+              "sub_value": {{ (output.amount ~ " " ~ token_id) | toString }}
+            }
+          },
+          {% endfor %}
+          {
+            "_component_type": "text",
+            "key": "Amount",
+            "data": {
+              "value": {{ (show_info.total_amount ~ " " ~ token_id) | toString }}
+            }
+          },
+          {% endif %}
+          {
+            "_component_type": "text",
+            "key": "Estimated Fee",
+            "data": {
+              "value": {% if fee.estimated_fee_used %}{{ (fee.estimated_fee_used ~ " " ~ fee.token_id) | toString }}{% else %}{{ (fee.fee_used ~ " " ~ fee.token_id) | toString }}{% endif %}
+            }
+          }
+          {% if fee.get("max_fee_amount") %},
+          {
+            "_component_type": "text",
+            "key": "Max Fee",
+            "data": {
+              "value": {{ (fee.max_fee_amount ~ " " ~ fee.token_id) | toString }}
+            }
+          }
+          {% endif %}
+        ]
+      }
+      {% if description %},
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "paragraph",
+            "_actions": [
+              "copy"
+            ],
+            "key": "Note",
+            "data": [{{ description | toString }}]
+          }
+        ]
+      }
+      {% endif %}
+    ]
+  }
+}

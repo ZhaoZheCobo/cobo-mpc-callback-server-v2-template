@@ -30,6 +30,64 @@ func TestRenderTemplate(t *testing.T) {
 	fmt.Printf("template: {{ test_var1 }}\nresult: %s", result)
 }
 
+func TestBuildStatementPythonNoneConcat(t *testing.T) {
+	template := `{
+  "value": {{ (fee.estimated_fee_used ~ " " ~ fee.token_id) | toString }},
+  "direct_null": {{ fee.estimated_fee_used | toString }}
+}`
+	bizData := `{
+  "fee": {
+    "estimated_fee_used": null,
+    "token_id": "ETH"
+  }
+}`
+
+	message, err := NewStatementBuilder(template).Build(bizData)
+	assert.NoError(t, err)
+	assert.Equal(t, `{"value":"None ETH","direct_null":null}`, message)
+}
+
+func TestBuildStatementPythonNoneIfGuardStaysFalse(t *testing.T) {
+	template := `{
+  "value": {% if fee.estimated_fee_used %}
+    {{ (fee.estimated_fee_used ~ " " ~ fee.token_id) | toString }}
+  {% else %}
+    {{ (fee.fee_used ~ " " ~ fee.token_id) | toString }}
+  {% endif %}
+}`
+	bizData := `{
+  "fee": {
+    "estimated_fee_used": null,
+    "fee_used": "0",
+    "token_id": "ETH"
+  }
+}`
+
+	message, err := NewStatementBuilder(template).Build(bizData)
+	assert.NoError(t, err)
+	assert.Equal(t, `{"value":"0 ETH"}`, message)
+}
+
+func TestBuildStatementPythonNoneGetGuardStaysFalse(t *testing.T) {
+	template := `{
+  "value": {% if fee.get("max_fee_amount") %}
+    {{ (fee.max_fee_amount ~ " " ~ fee.token_id) | toString }}
+  {% else %}
+    "fallback"
+  {% endif %}
+}`
+	bizData := `{
+  "fee": {
+    "max_fee_amount": null,
+    "token_id": "ETH"
+  }
+}`
+
+	message, err := NewStatementBuilder(template).Build(bizData)
+	assert.NoError(t, err)
+	assert.Equal(t, `{"value":"fallback"}`, message)
+}
+
 func TestBuildStatementV2(t *testing.T) {
 	bizKeys := []string{
 		"mfa_create_transaction_policy",
@@ -73,6 +131,31 @@ func TestBuildStatementV2(t *testing.T) {
 		// 	t.Logf("gotDiff: %s", gotDiff)
 		// }
 	}
+}
+
+// TestBuildStatementNullFeeMatchesProdPython pins down a real prod incident (Paragrine /
+// transaction_contractcall v1.0.3, cobo_id 20260805120002000146455000006646): fee.estimated_fee_used
+// was null and, because it's concatenated with "~" without an {% if %} guard, Python Jinja rendered
+// "None ETH" while the unpatched Go validator rebuilt " ETH", failing signature verification.
+// The expected message here was captured by rendering the real prod biz_data through the actual
+// cobo-libs transaction_contractcall_1.0.3.json.j2 template and filters.
+func TestBuildStatementNullFeeMatchesProdPython(t *testing.T) {
+	bizKey := "transaction_contractcall_null_fee"
+	version := "1.0.3"
+
+	data, err := getBizData(bizKey)
+	assert.NoError(t, err)
+
+	templateContent, err := getTemplateContent(bizKey, version)
+	assert.NoError(t, err)
+
+	message, err := NewStatementBuilder(templateContent).Build(data)
+	assert.NoError(t, err)
+
+	expected, err := getMessage(bizKey)
+	assert.NoError(t, err)
+
+	assert.Equal(t, expected, message)
 }
 
 func getBizData(bizKey string) (string, error) {

@@ -1,0 +1,152 @@
+{
+  "_theme": "mfa",
+  "_biz_version": {{ template_version | toString }},
+  "header": {
+    "title": "Please confirm if this action was initiated by you",
+    "title_icon": "https://d.cobo.com/public/documents/statement_mfa.png",
+    "components": [
+      {
+        "_component_type": "avatar",
+        "data": {
+          "icon_url": "https://d.cobo.com/public/documents/statement_mfa.png",
+          "text": {{ initiator | toString }}
+        }
+      }
+    ]
+  },
+  "body": {
+    "components": [
+      {
+        "_component_type": "text",
+        "_is_in_list": true,
+        "key": "Action",
+        "data": {
+          "value": {{ action | toString }}
+        }
+      },
+      {
+        "_component_type": "text",
+        "_is_in_list": true,
+        "key": "Organization",
+        "data": {
+          "value": {{ org_name | toString }},
+          "label": {{ environment | toString }}
+        }
+      },
+      {
+        "_component_type": "date_time",
+        "key": "Created Time",
+        "data": {
+          "value": {{ created_time | toInt }}
+        }
+      },
+      {% if expired_time %}
+      {
+        "_component_type": "date_time",
+        "key": "Expired Time",
+        "data": {
+          "value": {{ expired_time | toInt }}
+        }
+      },
+      {% endif %}
+      {
+        "_component_type": "text",
+        "key": "Message ID",
+        "data": {
+          "value": {{ statement_uuid | toString }}
+        }
+      },
+      {
+        "_component_type": "horizontal_line"
+      },
+      {
+        "_component_type": "view_more_panel",
+        "_style": {
+          "default_line": 3
+        },
+        "components": [
+          {
+            "_component_type": "text",
+            "key": "API Key Name",
+            "data": {
+              "value": {{ value_name | toString }}
+            }
+          },
+          {
+            "_component_type": "text_with_popup",
+            "key": "Key",
+            "data": {
+              "value": {{ value_key | toString }},
+              "popup": {
+                "title": "Key",
+                "components": [
+                  {
+                    "_component_type": "paragraph",
+                    "_style": {},
+                    "data": [{{ value_key | toString }}]
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "_component_type": "text_with_popup",
+            "key": "User Roles",
+            "data": {
+              "value": "{{ value_user_roles | len }} User Roles",
+              "popup": {
+                "title": "User Roles",
+                "sub_title": "{{ value_user_roles | len }} User Roles",
+                "components": [
+                  {% for role in value_user_roles %}
+                  {
+                    "_component_type": "card",
+                    "_style": {},
+                    "data": {
+                      "title": {{ role | toString }},
+                      "icon": ""
+                      }
+                  }{% if not loop.last %},{% endif %}
+                  {% endfor %}
+                ]
+              }
+            }
+          },
+          {
+            "_component_type": "text_with_popup",
+            "key": "Wallets",
+            "data": {
+              "value": "{{ value_wallets | len }} Wallets",
+              "popup": {
+                "title": "Wallets",
+                "sub_title": "{{ value_wallets | len }} Addresses",
+                "components": [
+                  {% for wallet in value_wallets %}
+                  {
+                    "_component_type": "paragraph",
+                    "data":[{{ wallet | toString }}]
+                  }{% if not loop.last %},{% endif %}
+                  {% endfor %}
+                ]
+              }
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Callback Endpoint",
+            "data": {
+              "value": {{ value_callback_endpoint | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "IP Whitelist",
+            "data": {
+              "value": {{ value_ip_whitelist | toString }}
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

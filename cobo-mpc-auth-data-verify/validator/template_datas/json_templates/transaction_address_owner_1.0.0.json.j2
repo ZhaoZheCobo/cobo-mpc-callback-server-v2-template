@@ -3,7 +3,7 @@
   "_biz_version": {{ template_version | toString }},
   "header": {
     "title": "[Transaction Review] Please confirm the details",
-    "title_icon": ""
+    "title_icon": "https://d.cobo.com/public/logos/transaction_guard_icon.png"
   },
   "body": {
     "components": [
@@ -22,7 +22,7 @@
             "_component_type": "date_time",
             "key": "Created Time",
             "data": {
-              "value": {{ created_timestamp / 1000 | toInt }}
+              "value": {{ created_time | toInt }}
             }
           },
           {

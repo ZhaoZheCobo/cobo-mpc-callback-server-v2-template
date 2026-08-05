@@ -1,0 +1,200 @@
+{
+  "_theme": "structured",
+  "_biz_version": {{ template_version | toString }},
+  "header": {
+    "title": {{ header_title | toString }},
+    "title_icon": "https://d.cobo.com/public/logos/business_guard_icon.png"
+  },
+  "body": {
+    "components": [
+      {
+        "_component_type": "notification",
+        "data": {
+          "content": {{ notification_content | toString }}
+        }
+      },
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "paragraph",
+            "_is_in_list": true,
+            "key": "Blocking Reason",
+            "data":  [{{ blocking_reason | toString }}]
+          },
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Organization",
+            "data": {
+              "value": {{ org_name | toString }},
+              "label": {{ environment | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Initiator",
+            "data": {
+              "value": {{ initiator | toString }}
+            }
+          },
+          {
+            "_component_type": "date_time",
+            "key": "Created Time",
+            "data": {
+              "value": {{ created_time | toInt }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Message ID",
+            "data": {
+              "value": {{ statement_uuid | toString }}
+            }
+          }
+        ]
+      },
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "key": "Transaction Type",
+            "data": {
+              "value": {{ type | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Chain",
+            "data": {
+              "value": {{ chain_id | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "Request ID",
+            "data": {
+              "value": {{ request_id | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "From",
+            "data": {
+              "label": {{ show_info.from_address_label | toString }},
+              "value": {{ source.address | toString }}
+            }
+          },
+          {% set has_account_output = destination.get("account_output") %}
+          {% set has_single_utxo = destination.get("utxo_outputs") and (destination.utxo_outputs | len) == 1 %}
+          {% if has_account_output or has_single_utxo %}
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "To",
+            "data": {
+              "label": {{ show_info.to_address_label | toString }},
+              {% if destination.get("account_output") and destination.account_output.get("memo") %}
+              "value": {{ (destination.account_output.address ~ "|" ~ destination.account_output.memo) | toString }}
+              {% elif destination.get("account_output") %}
+              "value": {{ destination.account_output.address | toString }}
+              {% else %}
+              "value": {{ destination.utxo_outputs[0].address | toString }}
+              {% endif %}
+            }
+          }
+          {% endif %}
+          {% if destination.get("utxo_outputs") and destination.utxo_outputs | len > 1 %}
+          {% for output in destination.utxo_outputs %}
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            {% if loop.index == 1 %}
+            "key": "To",
+            {% endif %}
+            "data": {
+              "value": {{ output.address | toString }},
+              "sub_value": {{ (output.amount ~ " " ~ token_id) | toString }}
+            }
+          }{% if not loop.last %},{% endif %}
+          {% endfor %}
+          {% endif %},
+          {% if destination.get("account_output") or (destination.get("utxo_outputs") and (destination.utxo_outputs | len) == 1) %}
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": false,
+              "is_large_size": true,
+              "is_bold": true
+            },
+            "key": "Value",
+            "data": {
+              {% if destination.get("account_output") %}
+              "value": {{ (destination.account_output.amount ~ " " ~ token_id) | toString }}
+              {% elif destination.get("utxo_outputs") and (destination.utxo_outputs | len) == 1 %}
+              "value": {{ (destination.utxo_outputs[0].amount ~ " " ~ token_id) | toString }}
+              {% endif %}
+            }
+          }
+          {% endif %}
+          {% if destination.get("utxo_outputs") and (destination.utxo_outputs | len) > 1 %}
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": false,
+              "is_large_size": true,
+              "is_bold": true
+            },
+            "key": "Value",
+            "data": {
+              "value": {{ (show_info.total_amount ~ " " ~ token_id) | toString }}
+            }
+          }
+          {% endif %}
+          {% if description %},
+          {
+            "_component_type": "paragraph",
+            "_actions": [
+              "copy"
+            ],
+            "key": "Description",
+            "data": [{{ description | toString }}]
+          }
+          {% endif %}
+        ]
+      }
+    ]
+  }
+}

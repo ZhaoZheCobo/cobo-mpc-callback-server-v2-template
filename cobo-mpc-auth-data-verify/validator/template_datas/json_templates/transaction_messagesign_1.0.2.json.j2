@@ -1,0 +1,452 @@
+{
+  "_theme": "structured",
+  "_biz_version": {{ template_version | toString }},
+  {% if is_for_sign %}
+  "_post_actions": [
+    {
+        "type": "sign_message",
+        "data": {
+            "transaction_id": {{ transaction_id | toString }},
+            "transaction_type": {{ type | toString }}
+        }
+    }
+  ],
+  {% endif %}
+  "header": {
+    "title": {{ header_title | toString }},
+    "title_icon": "https://d.cobo.com/public/logos/transaction_guard_icon.png"
+  },
+  "body": {
+    "components": [
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Organization",
+            "data": {
+              "value": {{ show_info.org_name | toString }},
+              "label": {{ show_info.environment | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Source",
+            "data": {
+              "value": {{ show_info.wallet_name | toString }},
+              "label": {{ source.source_type | toString }}
+            }
+          },
+          {% if initiator %}
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Initiator",
+            "data": {
+              "value": {{ initiator | toString }}
+            }
+          },
+          {% endif %}
+          {
+            "_component_type": "date_time",
+            "key": "Created Time",
+            "data": {
+              "value": {{ created_time | toInt }}
+            }
+          },
+          {% if expired_time %}
+          {
+            "_component_type": "date_time",
+            "key": "Expired Time",
+            "data": {
+              "value": {{ expired_time | toInt }}
+            }
+          },
+          {% endif %}
+          {
+            "_component_type": "text",
+            "key": "Message ID",
+            "data": {
+              "value": {{ statement_uuid | toString }}
+            }
+          }
+        ]
+      },
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "key": "Transaction Type",
+            "data": {
+              "value": {{ type | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Chain",
+            "data": {
+              "value": {{ chain_id | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "Transaction ID",
+            "data": {
+              "value": {{ transaction_id | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "Request ID",
+            "data": {
+              "value": {{ request_id | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "Signing Address",
+            "data": {
+              "label": {{ show_info.from_address_label | toString }},
+              "value": {{ source.address | toString }}
+            }
+          }
+        ]
+      },
+       {% if show_info.get("connection_type") %}
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "key": "Connection Type",
+            "data": {
+              "value": {{ show_info.connection_type | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Connected dApp",
+            "data": {
+              "value": {{ show_info.dapp_name | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "dApp URL",
+            "data": {
+              "value": {{ show_info.dapp_domain | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "Session ID",
+            "data": {
+              "value": {{ show_info.session_id | toString }}
+            }
+          }
+        ]
+      },
+      {% endif %}
+
+      {% if destination.get("safe_tx_extra_data") %}
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "key": "Safe Wallet",
+            "data": {
+              "value": {{ destination.safe_tx_extra_data.safe_address | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "safe TxHash",
+            "data": {
+              "value": {{ destination.safe_tx_extra_data.safe_tx_hash | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "Domain hash",
+            "data": {
+              "value": {{ destination.safe_tx_extra_data.domain_hash | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "Message hash",
+            "data": {
+              "value": {{ destination.safe_tx_extra_data.message_hash | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Operation",
+            "data": {
+              "value": {{ destination.safe_tx_extra_data.operation | toString }},
+              "warnings": {{ show_info.operation_warnings | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Nonce",
+            "data": {
+              "value": {{ destination.safe_tx_extra_data.safe_nonce | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "To",
+            "data": {
+              "value": {{ destination.safe_tx_extra_data.to | toString }},
+              "warnings": {{ show_info.to_warnings | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Value",
+            "data": {
+              "value": {{ destination.safe_tx_extra_data.value | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Function",
+            "data": {
+              "value": {{ destination.safe_tx_extra_data.decoded_data.method | toString }}
+            }
+          },
+          {
+            "_component_type": "paragraph",
+            "key": "Parameters",
+            "data": {{ destination.safe_tx_extra_data.decoded_data.parameters | toString }}
+          },
+          {% set contract_name = destination.safe_tx_extra_data.to_contract_name %}
+          {% set len_parameters=(destination.safe_tx_extra_data.decoded_data.parameters | len) %}
+          {%if len_parameters > 0 %}
+          {% set parameter = destination.safe_tx_extra_data.decoded_data.parameters[0] %}
+          {% if parameter.get("value_decoded") %}
+          {
+            "_component_type": "foldable_panels",
+            "key": "All Actions",
+            "data": [
+            {% for action in parameter.get("value_decoded") %}
+              {
+                {% set action_method=action.data_decoded.method %}
+                {% set panel_title = contract_name ~ "." ~ action_method if contract_name | len > 0 else action_method %}
+                "title": {{ panel_title | toString }},
+                "components": [
+                  {
+                    "_component_type": "text",
+                    "key": "To",
+                    "_style": {
+                      "is_highlighted": true,
+                      "is_large_size": false,
+                      "is_bold": false
+                    },
+                    "_actions": [
+                      "copy"
+                    ],
+                    "data": {
+                      "value": {{ action.to | toString }},
+                      "warnings": {{ show_info.action_to_warnings[loop.index-1] | toString }}
+                    }
+                  },
+                  {
+                    "_component_type": "text",
+                    "key": "Value",
+                    "_style": {
+                      "is_highlighted": false,
+                      "is_large_size": false,
+                      "is_bold": false
+                    },
+                    "data": {
+                      "value": {{ action.value | toString }}
+                    }
+                  },
+                  {
+                    "_component_type": "text",
+                    "key": "Function",
+                    "_style": {
+                      "is_highlighted": false,
+                      "is_large_size": false,
+                      "is_bold": false
+                    },
+                    "data": {
+                      "value": {{ action_method | toString }}
+                    }
+                  },
+                  {
+                    "_component_type": "paragraph",
+                    "key": "Parameters",
+                    "_actions": [
+                      "copy"
+                    ],
+                    "data": {{ action.data_decoded.parameters | toString }}
+                  }
+                ]
+              }{% if not loop.last %},{% endif %}
+            {% endfor %}
+            ]
+          },
+          {% endif %}
+          {% endif %}
+          {
+            "_component_type": "text",
+            "key": "Safe Tx Gas",
+            "data": {
+              "value": {{ destination.safe_tx_extra_data.safe_tx_gas | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Base Gas",
+            "data": {
+              "value": {{ destination.safe_tx_extra_data.base_gas | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Gas Price",
+            "data": {
+              "value": {{ destination.safe_tx_extra_data.gas_price | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Gas Token",
+            "data": {
+              "value": {{ chain_id | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Refund Receiver",
+            "data": {
+              "value": {{ destination.safe_tx_extra_data.refund_receiver | toString }}
+            }
+          }
+        ]
+      },
+      {% endif %}
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "paragraph",
+            "_actions": [
+              "copy"
+            ],
+            "key": "Message",
+            {% if destination.get("message") %}
+            "data": [{{ show_info.decoded_message | toString }}]
+            {% elif destination.get("structured_data") %}
+            "data": [{{ destination.structured_data | toString }}]
+            {% elif destination.get("msg_hash") %}
+            "data": [{{ destination.msg_hash | toString }}]
+            {% elif destination.get("message_bip137") %}
+            "data": [{{ destination.message_bip137 | toString }}]
+            {% elif destination.get("message_bip322") %}
+            "data": [{{ destination.message_bip322 | toString }}]
+            {% elif destination.get("message_cosmos_adr36") %}
+            "data": [{{ destination.message_cosmos_adr36 | toString }}]
+            {% endif %}
+          }
+        ]
+      }
+      {% if description %},
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "paragraph",
+            "key": "Note",
+            "_actions": [
+              "copy"
+            ],
+            "data": [
+               {{ description | toString }}
+            ]
+          }
+        ]
+      }
+      {% endif %}
+    ]
+  }
+}

@@ -1,160 +1,164 @@
 {
-    "transaction_id": "ab59425a-5721-401b-837c-081259cc712d",
+  "transaction_id": "ab59425a-5721-401b-837c-081259cc712d",
+  "wallet_id": "be59c1ed-cdb0-4fe1-a251-a60c017795cc",
+  "type": "ContractCall",
+  "status": "Rejected",
+  "initiator_type": "API",
+  "source": {
+    "source_type": "Org-Controlled",
     "wallet_id": "be59c1ed-cdb0-4fe1-a251-a60c017795cc",
-    "type": "ContractCall",
-    "status": "Rejected",
-    "initiator_type": "API",
-    "source": {
-        "source_type": "Org-Controlled",
-        "wallet_id": "be59c1ed-cdb0-4fe1-a251-a60c017795cc",
-        "address": "0xAe17bB62a5dfF598ceD2671BA6E7E320ec9e460A",
-        "included_utxos": null,
-        "excluded_utxos": null,
-        "signer_key_share_holder_group_id": null
-    },
-    "destination": {
-        "destination_type": "EVM_Contract",
-        "calldata": "0xa9059cbb000000000000000000000000ae17bb62a5dff598ced2671ba6e7e320ec9e460a0000000000000000000000000000000000000000000000000de0b6b3a7640000",
-        "address": "0x52dab98686d461bb6dac14f27640f3b6555d483f",
-        "value": "0",
-        "calldata_info": {
-            "chain_id": "SETH",
-            "address": "0x52dab98686d461bb6dac14f27640f3b6555d483f",
-            "name": "TestToken",
-            "impl_address": "",
-            "impl_name": "",
-            "proxy": false,
-            "method": {
-                "name": "transfer",
-                "sig": "transfer(address,uint256)",
-                "type": "nonpayable",
-                "payable": false,
-                "selector": "0xa9059cbb"
-            },
-            "params": "[[\"to\", \"address\", \"0xae17bb62a5dff598ced2671ba6e7e320ec9e460a\"], [\"amount\", \"uint256\", \"1000000000000000000\"]]"
-        }
-    },
-    "created_timestamp": 1754360859041,
-    "updated_timestamp": 1754360923645,
-    "cobo_id": "20250805102738000306661000008338",
-    "request_id": "dcd66618-c1fd-4c11-ba76-7af8894ae580",
-    "sub_status": "RejectedApproverAuth",
-    "failed_reason": null,
-    "chain_id": "SETH",
-    "token_id": "SETH",
-    "asset_id": null,
-    "result": null,
-    "fee": {
-        "fee_type": "EVM_Legacy",
-        "token_id": "SETH",
-        "fee_used": "0",
-        "estimated_fee_used": "0.000000080921139052",
-        "gas_used": null,
-        "gas_price": "1001078",
-        "gas_limit": "80834",
-        "token_symbol": "SETH"
-    },
-    "initiator": "zyc_key_1",
-    "confirmed_num": null,
-    "confirming_threshold": 64,
-    "transaction_hash": null,
-    "block_info": null,
-    "raw_tx_info": null,
-    "replacement": null,
-    "fueling_info": null,
-    "category": [],
-    "cobo_category": [],
-    "description": "",
-    "is_loop": false,
-    "extra": null,
-    "timeline": [
-        {
-            "status": "Submitted",
-            "finished": true,
-            "finished_timestamp": 1754360859000,
-            "sub_status": ""
-        },
-        {
-            "status": "PendingScreening",
-            "finished": true,
-            "finished_timestamp": 1754360859292,
-            "sub_status": ""
-        },
-        {
-            "status": "PendingAuthorization",
-            "finished": false,
-            "finished_timestamp": 1754360860993,
-            "sub_status": ""
-        },
-        {
-            "status": "Rejected",
-            "finished": true,
-            "finished_timestamp": 1754360923000,
-            "sub_status": ""
-        }
-    ],
-    "org_id": "7be252a6-9778-4972-947b-5965f4793d90",
-    "from_info": "Default wallet 08996",
-    "to_info": "",
+    "address": "0xAe17bB62a5dfF598ceD2671BA6E7E320ec9e460A",
+    "included_utxos": null,
+    "excluded_utxos": null,
+    "signer_key_share_holder_group_id": null
+  },
+  "destination": {
+    "destination_type": "EVM_Contract",
+    "calldata": "0xa9059cbb000000000000000000000000ae17bb62a5dff598ced2671ba6e7e320ec9e460a0000000000000000000000000000000000000000000000000de0b6b3a7640000",
+    "address": "0x52dab98686d461bb6dac14f27640f3b6555d483f",
+    "value": "0",
     "calldata_info": {
-        "address": "0x52dab98686d461bb6dac14f27640f3b6555d483f",
-        "chain_id": "SETH",
-        "contract_name": "TestToken",
-        "impl": "",
-        "impl_name": "",
-        "proxy": false,
-        "data": "0xa9059cbb000000000000000000000000ae17bb62a5dff598ced2671ba6e7e320ec9e460a0000000000000000000000000000000000000000000000000de0b6b3a7640000",
-        "method": {
-            "name": "transfer",
-            "sig": "transfer(address,uint256)",
-            "type": "nonpayable",
-            "payable": false,
-            "selector": "0xa9059cbb"
-        },
-        "params": "[[\"to\", \"address\", \"0xae17bb62a5dff598ced2671ba6e7e320ec9e460a\"], [\"amount\", \"uint256\", \"1000000000000000000\"]]",
-        "extra": {
-            "erc_type": "ERC-20"
-        }
-    },
-    "approvers": [
-        {
-            "name": "zhuyoucou+5388",
-            "status": "Rejected"
-        },
-        {
-            "name": "zhuyoucou+4006",
-            "status": "Pending"
-        }
-    ],
-    "custodial_estimated_fee": null,
-    "outbound_fee": null,
-    "deferred_fee": null,
-    "signers": [],
-    "replaced_by": null,
-    "fueled_by": null,
-    "message": null,
-    "rbf_enable": false,
-    "delegate_tx": false,
-    "is_from_fee_station_tx": false,
-    "vault_id": "2e81bcdb-3ca3-4f3d-be22-b39ac34437f7",
-    "project_id": null,
-    "confirmations": [],
-    "actions": [],
-    "from_type": null,
-    "from_sub_wallet": null,
-    "to_type": null,
-    "from_wallet_id": null,
-    "to_wallet_id": null,
-    "to_sub_wallet": null,
-    "commission_fees": [],
-    "is_for_sign": false,
-    "header_title": "Transaction: Approver Approval",
-    "show_info": {
-        "org_name": "Cobo",
-        "wallet_name": "Default wallet 08996",
-        "environment": "Prod",
-        "from_address_label": "0xAe17bB62a5dfF598ceD2671BA6E7E320ec9e460A",
-        "to_address_label": "",
-        "to_address_labels": []
+      "chain_id": "SETH",
+      "address": "0x52dab98686d461bb6dac14f27640f3b6555d483f",
+      "name": "TestToken",
+      "impl_address": "",
+      "impl_name": "",
+      "proxy": false,
+      "method": {
+        "name": "transfer",
+        "sig": "transfer(address,uint256)",
+        "type": "nonpayable",
+        "payable": false,
+        "selector": "0xa9059cbb"
+      },
+      "params": "[[\"to\", \"address\", \"0xae17bb62a5dff598ced2671ba6e7e320ec9e460a\"], [\"amount\", \"uint256\", \"1000000000000000000\"]]"
     }
+  },
+  "created_timestamp": 1754360859041,
+  "updated_timestamp": 1754360923645,
+  "cobo_id": "20250805102738000306661000008338",
+  "request_id": "dcd66618-c1fd-4c11-ba76-7af8894ae580",
+  "sub_status": "RejectedApproverAuth",
+  "failed_reason": null,
+  "chain_id": "SETH",
+  "token_id": "SETH",
+  "asset_id": null,
+  "result": null,
+  "fee": {
+    "fee_type": "EVM_Legacy",
+    "token_id": "SETH",
+    "fee_used": "0",
+    "estimated_fee_used": "0.000000080921139052",
+    "gas_used": null,
+    "gas_price": "1001078",
+    "gas_limit": "80834",
+    "token_symbol": "SETH"
+  },
+  "initiator": "zyc_key_1",
+  "confirmed_num": null,
+  "confirming_threshold": 64,
+  "transaction_hash": null,
+  "block_info": null,
+  "raw_tx_info": null,
+  "replacement": null,
+  "fueling_info": null,
+  "category": [],
+  "cobo_category": [],
+  "description": "",
+  "is_loop": false,
+  "extra": null,
+  "timeline": [
+    {
+      "status": "Submitted",
+      "finished": true,
+      "finished_timestamp": 1754360859000,
+      "sub_status": ""
+    },
+    {
+      "status": "PendingScreening",
+      "finished": true,
+      "finished_timestamp": 1754360859292,
+      "sub_status": ""
+    },
+    {
+      "status": "PendingAuthorization",
+      "finished": false,
+      "finished_timestamp": 1754360860993,
+      "sub_status": ""
+    },
+    {
+      "status": "Rejected",
+      "finished": true,
+      "finished_timestamp": 1754360923000,
+      "sub_status": ""
+    }
+  ],
+  "org_id": "7be252a6-9778-4972-947b-5965f4793d90",
+  "from_info": "Default wallet 08996",
+  "to_info": "",
+  "calldata_info": {
+    "address": "0x52dab98686d461bb6dac14f27640f3b6555d483f",
+    "chain_id": "SETH",
+    "contract_name": "TestToken",
+    "impl": "",
+    "impl_name": "",
+    "proxy": false,
+    "data": "0xa9059cbb000000000000000000000000ae17bb62a5dff598ced2671ba6e7e320ec9e460a0000000000000000000000000000000000000000000000000de0b6b3a7640000",
+    "method": {
+      "name": "transfer",
+      "sig": "transfer(address,uint256)",
+      "type": "nonpayable",
+      "payable": false,
+      "selector": "0xa9059cbb"
+    },
+    "params": "[[\"to\", \"address\", \"0xae17bb62a5dff598ced2671ba6e7e320ec9e460a\"], [\"amount\", \"uint256\", \"1000000000000000000\"]]",
+    "extra": {
+      "erc_type": "ERC-20"
+    }
+  },
+  "approvers": [
+    {
+      "name": "zhuyoucou+5388",
+      "status": "Rejected"
+    },
+    {
+      "name": "zhuyoucou+4006",
+      "status": "Pending"
+    }
+  ],
+  "custodial_estimated_fee": null,
+  "outbound_fee": null,
+  "deferred_fee": null,
+  "signers": [],
+  "replaced_by": null,
+  "fueled_by": null,
+  "message": null,
+  "rbf_enable": false,
+  "delegate_tx": false,
+  "is_from_fee_station_tx": false,
+  "vault_id": "2e81bcdb-3ca3-4f3d-be22-b39ac34437f7",
+  "project_id": null,
+  "confirmations": [],
+  "actions": [],
+  "from_type": null,
+  "from_sub_wallet": null,
+  "to_type": null,
+  "from_wallet_id": null,
+  "to_wallet_id": null,
+  "to_sub_wallet": null,
+  "commission_fees": [],
+  "is_for_sign": false,
+  "header_title": "Transaction: Approver Approval",
+  "show_info": {
+    "org_name": "Cobo",
+    "wallet_name": "Default wallet 08996",
+    "environment": "Prod",
+    "from_address_label": "0xAe17bB62a5dfF598ceD2671BA6E7E320ec9e460A",
+    "to_address_label": "",
+    "to_address_labels": []
+  },
+  "created_time": 1747221732,
+  "expired_time": 0,
+  "statement_uuid": "uuid-abc-123",
+  "template_version": "1.0.0"
 }

@@ -14,7 +14,7 @@
   {% endif %}
   "header": {
     "title": {{ header_title | toString }},
-    "title_icon": ""
+    "title_icon": "https://d.cobo.com/public/logos/transaction_guard_icon.png"
   },
   "body": {
     "components": [
@@ -121,6 +121,7 @@
           }
         ]
       },
+      {% if destination.destination_type != "SOL_Contract" %}
       {
         "_component_type": "section",
         "components": [
@@ -208,6 +209,80 @@
           }
         ]
       }
+      {% endif %}
+      {% else %}
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "From",
+            "data": {
+              "label": {{ show_info.from_address_label | toString }},
+              "value": {{ source.address | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Estimated Fee",
+            "data": {
+              "value": {{ (fee.estimated_fee_used ~ " " ~ fee.token_id) | toString }}
+            }
+          }
+          {% if fee.get("max_fee_amount") %},
+          {
+            "_component_type": "text",
+            "key": "Max Fee",
+            "data": {
+              "value": {{ (fee.max_fee_amount ~ " " ~ fee.token_id) | toString }}
+            }
+          }
+          {% endif %}
+        ]
+      },
+      {% for instruction in destination.instructions %}
+        {
+            "_component_type": "section",
+            "components": [
+                {
+                    "_component_type": "text",
+                    "_style": {"is_highlighted": true},
+                    "_actions": ["copy"],
+                    "key": "Interact with",
+                    "data": {
+                        "value": {{ instruction.program_id | toString }}
+                    }
+                },
+                {
+                    "_component_type": "paragraph",
+                    "_style": {"is_highlighted": true},
+                    "_actions": ["copy"],
+                    "key": "Input Accounts",
+                    "data": [
+                        {% for account in instruction.accounts %}
+                        {{ account.pubkey | toString }}{% if not loop.last %},{% endif %}
+                        {% endfor %}
+                    ]
+                },
+                {
+                    "_component_type": "paragraph",
+                    "_actions": ["copy"],
+                    "key": "Instruction Data",
+                    "data": [
+                        {{ instruction.data | toString }}
+                    ]
+                }
+            ]
+        }{% if not loop.last %},{% endif %}
+      {% endfor %}
       {% endif %}
       {% if description %},
       {

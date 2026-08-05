@@ -1,0 +1,85 @@
+{
+  "_theme": "mfa",
+  "_biz_version": {{ template_version | toString }},
+  "header": {
+    "title": "Please confirm if this action was initiated by you",
+    "title_icon": "https://d.cobo.com/public/documents/statement_mfa.png",
+    "components": [
+      {
+        "_component_type": "avatar",
+        "data": {
+          "icon_url": "https://d.cobo.com/public/documents/statement_mfa.png",
+          "text": {{ initiator | toString }}
+        }
+      }
+    ]
+  },
+  "body": {
+    "components": [
+      {
+        "_component_type": "text",
+        "_is_in_list": true,
+        "key": "Action",
+        "data": {
+          "value": {{ action | toString }}
+        }
+      },
+      {
+        "_component_type": "text",
+        "_is_in_list": true,
+        "key": "Organization",
+        "data": {
+          "value": {{ org_name | toString }},
+          "label": {{ environment | toString }}
+        }
+      },
+      {
+        "_component_type": "date_time",
+        "key": "Created Time",
+        "data": {
+          "value": {{ created_time | toInt }}
+        }
+      },
+      {% if expired_time %}
+      {
+        "_component_type": "date_time",
+        "key": "Expired Time",
+        "data": {
+          "value": {{ expired_time | toInt }}
+        }
+      },
+      {% endif %}
+      {
+        "_component_type": "text",
+        "key": "Message ID",
+        "data": {
+          "value": {{ statement_uuid | toString }}
+        }
+      },
+      {
+        "_component_type": "horizontal_line"
+      },
+      {
+        "_component_type": "text",
+        "key": "Address List",
+        "data": {
+          "value": {{ value_address_list | toString }}
+        }
+      },
+      {
+        "_component_type": "text",
+        "key": "Address",
+        "data": {
+          "value": {{ address | toString }}
+        }
+      },
+      {
+        "_component_type": "text",
+        "key": "Address Label",
+        "data": {
+          "value": {{ address_label | toString }}
+        }
+      }
+    ]
+  }
+}

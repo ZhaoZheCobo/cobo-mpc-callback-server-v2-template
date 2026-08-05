@@ -1,0 +1,122 @@
+{
+  "_theme": "structured",
+  "_biz_version": {{ template_version | toString }},
+  "header": {
+    "title": {{ header_title | toString }},
+    "title_icon": "https://d.cobo.com/public/logos/business_guard_icon.png"
+  },
+  "body": {
+    "components": [
+      {
+        "_component_type": "notification",
+        "data": {
+          "content": {{ notification_content | toString }}
+        }
+      },
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Organization",
+            "data": {
+              "value": {{ org_name | toString }},
+              "label": {{ environment | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Initiator",
+            "data": {
+              "value": {{ initiator | toString }}
+            }
+          },
+          {
+            "_component_type": "date_time",
+            "key": "Creation Time",
+            "data": {
+              "value": {{ created_time | toInt }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Message ID",
+            "data": {
+              "value": {{ statement_uuid | toString }}
+            }
+          }
+        ]
+      },
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "key": "Legal Name",
+            "data": {
+              "value": {{ legal_name | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Registration Number",
+            "data": {
+              "value": {{ registration_number | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Corporate Type",
+            "data": {
+              "value": {{ corporate_type | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Incorporation Date",
+            "data": {
+              "value": {{ incorporation_date | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Incorporation Country",
+            "data": {
+              "value": {{ incorporation_country | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Incorporation City",
+            "data": {
+              "value": {{ incorporation_city | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Incorporation Address",
+            "data": {
+              "value": {{ incorporation_address | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Currency",
+            "data": {
+              "value": {{ currency | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Bank",
+            "data": {
+              "value": {{ bank | toString }}
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
