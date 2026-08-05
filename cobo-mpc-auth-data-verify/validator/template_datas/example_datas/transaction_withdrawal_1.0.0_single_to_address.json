@@ -1,139 +1,148 @@
 {
-    "transaction_id": "003ec1ec-7868-4e4e-91a0-0ad4853bacf9",
-    "wallet_id": "199d1d78-7ffc-44f7-b000-73a25bbfe203",
-    "type": "Withdrawal",
-    "status": "Completed",
-    "initiator_type": "Web",
-    "source": {
-        "source_type": "Asset",
-        "wallet_id": "199d1d78-7ffc-44f7-b000-73a25bbfe203"
+  "transaction_id": "003ec1ec-7868-4e4e-91a0-0ad4853bacf9",
+  "wallet_id": "199d1d78-7ffc-44f7-b000-73a25bbfe203",
+  "type": "Withdrawal",
+  "status": "Completed",
+  "initiator_type": "Web",
+  "source": {
+    "source_type": "Asset",
+    "wallet_id": "199d1d78-7ffc-44f7-b000-73a25bbfe203"
+  },
+  "destination": {
+    "destination_type": "Address",
+    "account_output": {
+      "address": "fc93563323acf15a039d65009225aef9e444e44a",
+      "amount": "0.1",
+      "memo": null
     },
-    "destination": {
-        "destination_type": "Address",
-        "account_output": {
-            "address": "fc93563323acf15a039d65009225aef9e444e44a",
-            "amount": "0.1",
-            "memo": null
-        },
-        "utxo_outputs": null,
-        "change_address": null,
-        "force_internal": false,
-        "force_external": false
-    },
-    "created_timestamp": 1753777091460,
-    "updated_timestamp": 1753778094828,
-    "cobo_id": "20250729161935000384009000006208",
-    "request_id": "web_send_facab127-8e64-4764-b493-aef0b36d8218",
-    "sub_status": null,
-    "failed_reason": null,
-    "chain_id": "SETH",
+    "utxo_outputs": null,
+    "change_address": null,
+    "force_internal": false,
+    "force_external": false
+  },
+  "created_timestamp": 1753777091460,
+  "updated_timestamp": 1753778094828,
+  "cobo_id": "20250729161935000384009000006208",
+  "request_id": "web_send_facab127-8e64-4764-b493-aef0b36d8218",
+  "sub_status": null,
+  "failed_reason": null,
+  "chain_id": "SETH",
+  "token_id": "SETH",
+  "asset_id": null,
+  "result": null,
+  "fee": {
+    "fee_type": "Fixed",
     "token_id": "SETH",
-    "asset_id": null,
-    "result": null,
-    "fee": {
-        "fee_type": "Fixed",
-        "token_id": "SETH",
-        "fee_used": "0.00003968154880697",
-        "estimated_fee_used": null,
-        "max_fee_amount": null,
-        "token_symbol": "SETH"
+    "fee_used": "0.00003968154880697",
+    "estimated_fee_used": null,
+    "max_fee_amount": null,
+    "token_symbol": "SETH"
+  },
+  "initiator": "zhuyoucou+4006",
+  "confirmed_num": 64,
+  "confirming_threshold": 64,
+  "transaction_hash": "0xdb1879cb76d424614d2faf5f684d5f495523877ab14235f06940b44aac735a68",
+  "block_info": {
+    "block_number": 8866824,
+    "block_timestamp": 1753777176000,
+    "block_hash": "0x63191fdf32990b8d83229bcf9f1a6fc3ccb354f6b8ec255ff3c4f7f2844fdb3a"
+  },
+  "raw_tx_info": null,
+  "replacement": null,
+  "fueling_info": null,
+  "category": [],
+  "cobo_category": [],
+  "description": "",
+  "is_loop": false,
+  "extra": null,
+  "timeline": [
+    {
+      "status": "Submitted",
+      "finished": true,
+      "finished_timestamp": 1753777091615,
+      "sub_status": null
     },
-    "initiator": "zhuyoucou+4006",
-    "confirmed_num": 64,
-    "confirming_threshold": 64,
-    "transaction_hash": "0xdb1879cb76d424614d2faf5f684d5f495523877ab14235f06940b44aac735a68",
-    "block_info": {
-        "block_number": 8866824,
-        "block_timestamp": 1753777176000,
-        "block_hash": "0x63191fdf32990b8d83229bcf9f1a6fc3ccb354f6b8ec255ff3c4f7f2844fdb3a"
+    {
+      "status": "PendingScreening",
+      "finished": true,
+      "finished_timestamp": 1753777094722,
+      "sub_status": null
     },
-    "raw_tx_info": null,
-    "replacement": null,
-    "fueling_info": null,
-    "category": [],
-    "cobo_category": [],
-    "description": "",
-    "is_loop": false,
-    "extra": null,
-    "timeline": [
-        {
-            "status": "Submitted",
-            "finished": true,
-            "finished_timestamp": 1753777091615,
-            "sub_status": null
-        },
-        {
-            "status": "PendingScreening",
-            "finished": true,
-            "finished_timestamp": 1753777094722,
-            "sub_status": null
-        },
-        {
-            "status": "PendingAuthorization",
-            "finished": true,
-            "finished_timestamp": 1753777175142,
-            "sub_status": null
-        },
-        {
-            "status": "Confirming",
-            "finished": true,
-            "finished_timestamp": 1753778094833,
-            "sub_status": null
-        },
-        {
-            "status": "Completed",
-            "finished": true,
-            "finished_timestamp": 1753778094833,
-            "sub_status": null
-        }
-    ],
-    "org_id": "7be252a6-9778-4972-947b-5965f4793d90",
-    "from_info": "Default Wallet",
-    "to_info": "",
-    "calldata_info": null,
-    "approvers": [],
-    "custodial_estimated_fee": null,
-    "outbound_fee": {
-        "code": "SETH",
-        "amount": "0.00000023200077603",
-        "display_code": "SETH",
-        "icon_url": "https://d.cobo.com/public/logos/eth%403x.png",
-        "description": "Ethereum Sepolia Testnet"
+    {
+      "status": "PendingAuthorization",
+      "finished": true,
+      "finished_timestamp": 1753777175142,
+      "sub_status": null
     },
-    "deferred_fee": {
-        "code": "SETH",
-        "amount": "0.00003944954803094",
-        "display_code": "SETH",
-        "icon_url": "https://d.cobo.com/public/logos/eth%403x.png",
-        "description": "Ethereum Sepolia Testnet"
+    {
+      "status": "Confirming",
+      "finished": true,
+      "finished_timestamp": 1753778094833,
+      "sub_status": null
     },
-    "signers": [],
-    "replaced_by": null,
-    "fueled_by": null,
-    "message": null,
-    "rbf_enable": false,
-    "delegate_tx": false,
-    "is_from_fee_station_tx": false,
-    "vault_id": null,
-    "project_id": null,
-    "confirmations": [],
-    "actions": [],
-    "from_type": null,
-    "from_sub_wallet": null,
-    "to_type": null,
-    "from_wallet_id": null,
-    "to_wallet_id": null,
-    "to_sub_wallet": null,
-    "commission_fees": [],
-    "is_for_sign": false,
-    "header_title": "Transaction: Approver Approval",
-    "show_info": {
-        "org_name": "Cobo",
-        "wallet_name": "Bitcoin Operations Wallet",
-        "environment": "Prod",
-        "from_address_label": "Main Operations Address",
-        "to_address_label": "Multiple Recipients",
-        "total_amount": "3.2",
-        "to_address_labels": ["", "to 2", "to 3", ""]
+    {
+      "status": "Completed",
+      "finished": true,
+      "finished_timestamp": 1753778094833,
+      "sub_status": null
     }
+  ],
+  "org_id": "7be252a6-9778-4972-947b-5965f4793d90",
+  "from_info": "Default Wallet",
+  "to_info": "",
+  "calldata_info": null,
+  "approvers": [],
+  "custodial_estimated_fee": null,
+  "outbound_fee": {
+    "code": "SETH",
+    "amount": "0.00000023200077603",
+    "display_code": "SETH",
+    "icon_url": "https://d.cobo.com/public/logos/eth%403x.png",
+    "description": "Ethereum Sepolia Testnet"
+  },
+  "deferred_fee": {
+    "code": "SETH",
+    "amount": "0.00003944954803094",
+    "display_code": "SETH",
+    "icon_url": "https://d.cobo.com/public/logos/eth%403x.png",
+    "description": "Ethereum Sepolia Testnet"
+  },
+  "signers": [],
+  "replaced_by": null,
+  "fueled_by": null,
+  "message": null,
+  "rbf_enable": false,
+  "delegate_tx": false,
+  "is_from_fee_station_tx": false,
+  "vault_id": null,
+  "project_id": null,
+  "confirmations": [],
+  "actions": [],
+  "from_type": null,
+  "from_sub_wallet": null,
+  "to_type": null,
+  "from_wallet_id": null,
+  "to_wallet_id": null,
+  "to_sub_wallet": null,
+  "commission_fees": [],
+  "is_for_sign": false,
+  "header_title": "Transaction: Approver Approval",
+  "show_info": {
+    "org_name": "Cobo",
+    "wallet_name": "Bitcoin Operations Wallet",
+    "environment": "Prod",
+    "from_address_label": "Main Operations Address",
+    "to_address_label": "Multiple Recipients",
+    "total_amount": "3.2",
+    "to_address_labels": [
+      "",
+      "to 2",
+      "to 3",
+      ""
+    ]
+  },
+  "created_time": 1747221732,
+  "expired_time": 0,
+  "statement_uuid": "uuid-abc-123",
+  "template_version": "1.0.0"
 }

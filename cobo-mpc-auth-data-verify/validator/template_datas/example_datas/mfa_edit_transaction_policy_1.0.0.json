@@ -1,19 +1,29 @@
 {
-    "policy_name": "zyc_test",
-    "policy_type": "Transfer",
-    "applicable_wallets": ["MPC", "Custodial / Asset", "SCW"],
-    "conditions": {
-        "Initiator": ["any API key initiates a transaction."],
-        "SpendingLimit": ["SOL_1INCH >1 SOL_1INCH per transaction."]
-    },
-    "conditions_type_names": "Initiator,SpendingLimit",
-    "approval_desc": "Auto Approval",
-    "approval_users": [],
-    "policy_priority": "#1",
-    "initiator": "test@cobo.com",
-    "org_name": "cobo",
-    "action": "Create Transaction Policy",
-    "environment": "Sandbox",
-    "statement_uuid": "d557b647-08d0-45e7-bede-702feafb9810",
-    "template_version": "1.0.0"
+  "policy_name": "zyc_test",
+  "policy_type": "Transfer",
+  "applicable_wallets": [
+    "MPC",
+    "Custodial / Asset",
+    "SCW"
+  ],
+  "conditions": {
+    "Initiator": [
+      "any API key initiates a transaction."
+    ],
+    "SpendingLimit": [
+      "SOL_1INCH >1 SOL_1INCH per transaction."
+    ]
+  },
+  "conditions_type_names": "Initiator,SpendingLimit",
+  "approval_desc": "Auto Approval",
+  "approval_users": [],
+  "policy_priority": "#1",
+  "initiator": "test@cobo.com",
+  "org_name": "cobo",
+  "action": "Create Transaction Policy",
+  "environment": "Sandbox",
+  "statement_uuid": "d557b647-08d0-45e7-bede-702feafb9810",
+  "template_version": "1.0.0",
+  "created_time": 1747221732,
+  "expired_time": 0
 }

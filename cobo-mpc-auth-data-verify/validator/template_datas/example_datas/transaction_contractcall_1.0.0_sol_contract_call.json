@@ -1,146 +1,150 @@
 {
-    "transaction_id": "11a81fff-4a9c-4079-ada7-1e243f865398",
+  "transaction_id": "11a81fff-4a9c-4079-ada7-1e243f865398",
+  "wallet_id": "be59c1ed-cdb0-4fe1-a251-a60c017795cc",
+  "type": "ContractCall",
+  "status": "Rejected",
+  "initiator_type": "API",
+  "source": {
+    "source_type": "Org-Controlled",
     "wallet_id": "be59c1ed-cdb0-4fe1-a251-a60c017795cc",
-    "type": "ContractCall",
-    "status": "Rejected",
-    "initiator_type": "API",
-    "source": {
-        "source_type": "Org-Controlled",
-        "wallet_id": "be59c1ed-cdb0-4fe1-a251-a60c017795cc",
-        "address": "96KPffcE3TvPYi9AoypNXGWXhLSf6MTHxezm1Hpcugdh",
-        "included_utxos": null,
-        "excluded_utxos": null,
-        "signer_key_share_holder_group_id": null
-    },
-    "destination": {
-        "destination_type": "SOL_Contract",
-        "instructions": [
-            {
-                "accounts": [
-                    {
-                        "pubkey": "42joJrL25XerAhtKJAjgaAACfZzKgXdYNygrcHvnQnTh",
-                        "is_signer": true,
-                        "is_writable": true
-                    }
-                ],
-                "data": "Q2FuYXJ5IFRYIDQsIHNsb3Q6IDIxOTg1ODExNw==",
-                "program_id": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
-            },
-            {
-                "accounts": [
-                    {
-                        "pubkey": "Ff9kL8u7rM2WHEQwVwC9G6WxZnFzSExgkk8vP6XkebYo",
-                        "is_signer": true,
-                        "is_writable": true
-                    }
-                ],
-                "data": "U2lnbiB0aGlzIGFjdGlvbiBhcyBhZCwgYW5kIHNsb3Q6IDEyMzQ1Njc4OQ==",
-                "program_id": "9yBktESU5kUEdFxxvbEp1Fy4x77qWY4QnHyrQG9XwALz"
-            }
-        ]
-    },
-    "created_timestamp": 1754360933443,
-    "updated_timestamp": 1754360971797,
-    "cobo_id": "20250805102853000311210000002677",
-    "request_id": "ed2d427c-e60a-4433-946a-14b71514a359",
-    "sub_status": "RejectedApproverAuth",
-    "failed_reason": null,
-    "chain_id": "SOLDEV_SOL",
+    "address": "96KPffcE3TvPYi9AoypNXGWXhLSf6MTHxezm1Hpcugdh",
+    "included_utxos": null,
+    "excluded_utxos": null,
+    "signer_key_share_holder_group_id": null
+  },
+  "destination": {
+    "destination_type": "SOL_Contract",
+    "instructions": [
+      {
+        "accounts": [
+          {
+            "pubkey": "42joJrL25XerAhtKJAjgaAACfZzKgXdYNygrcHvnQnTh",
+            "is_signer": true,
+            "is_writable": true
+          }
+        ],
+        "data": "Q2FuYXJ5IFRYIDQsIHNsb3Q6IDIxOTg1ODExNw==",
+        "program_id": "KLend2g3cP87fffoy8q1mQqGKjrxjC8boSyAYavgmjD"
+      },
+      {
+        "accounts": [
+          {
+            "pubkey": "Ff9kL8u7rM2WHEQwVwC9G6WxZnFzSExgkk8vP6XkebYo",
+            "is_signer": true,
+            "is_writable": true
+          }
+        ],
+        "data": "U2lnbiB0aGlzIGFjdGlvbiBhcyBhZCwgYW5kIHNsb3Q6IDEyMzQ1Njc4OQ==",
+        "program_id": "9yBktESU5kUEdFxxvbEp1Fy4x77qWY4QnHyrQG9XwALz"
+      }
+    ]
+  },
+  "created_timestamp": 1754360933443,
+  "updated_timestamp": 1754360971797,
+  "cobo_id": "20250805102853000311210000002677",
+  "request_id": "ed2d427c-e60a-4433-946a-14b71514a359",
+  "sub_status": "RejectedApproverAuth",
+  "failed_reason": null,
+  "chain_id": "SOLDEV_SOL",
+  "token_id": "SOLDEV_SOL",
+  "asset_id": "SOLDEV",
+  "result": null,
+  "fee": {
+    "fee_type": "EVM_Legacy",
     "token_id": "SOLDEV_SOL",
-    "asset_id": "SOLDEV",
-    "result": null,
-    "fee": {
-        "fee_type": "EVM_Legacy",
-        "token_id": "SOLDEV_SOL",
-        "fee_used": "0",
-        "estimated_fee_used": "0.001005",
-        "gas_used": null,
-        "gas_price": "5000",
-        "gas_limit": "1",
-        "token_symbol": "SOLDEV"
+    "fee_used": "0",
+    "estimated_fee_used": "0.001005",
+    "gas_used": null,
+    "gas_price": "5000",
+    "gas_limit": "1",
+    "token_symbol": "SOLDEV"
+  },
+  "initiator": "zyc_key_1",
+  "confirmed_num": null,
+  "confirming_threshold": 1,
+  "transaction_hash": null,
+  "block_info": null,
+  "raw_tx_info": null,
+  "replacement": null,
+  "fueling_info": null,
+  "category": [],
+  "cobo_category": [],
+  "description": "",
+  "is_loop": false,
+  "extra": null,
+  "timeline": [
+    {
+      "status": "Submitted",
+      "finished": true,
+      "finished_timestamp": 1754360933000,
+      "sub_status": ""
     },
-    "initiator": "zyc_key_1",
-    "confirmed_num": null,
-    "confirming_threshold": 1,
-    "transaction_hash": null,
-    "block_info": null,
-    "raw_tx_info": null,
-    "replacement": null,
-    "fueling_info": null,
-    "category": [],
-    "cobo_category": [],
-    "description": "",
-    "is_loop": false,
-    "extra": null,
-    "timeline": [
-        {
-            "status": "Submitted",
-            "finished": true,
-            "finished_timestamp": 1754360933000,
-            "sub_status": ""
-        },
-        {
-            "status": "PendingScreening",
-            "finished": true,
-            "finished_timestamp": 1754360933464,
-            "sub_status": ""
-        },
-        {
-            "status": "PendingAuthorization",
-            "finished": false,
-            "finished_timestamp": 1754360935339,
-            "sub_status": ""
-        },
-        {
-            "status": "Rejected",
-            "finished": true,
-            "finished_timestamp": 1754360971000,
-            "sub_status": ""
-        }
-    ],
-    "org_id": "7be252a6-9778-4972-947b-5965f4793d90",
-    "from_info": "Default wallet 08996",
-    "to_info": "",
-    "calldata_info": null,
-    "approvers": [
-        {
-            "name": "zhuyoucou+5388",
-            "status": "Rejected"
-        },
-        {
-            "name": "zhuyoucou+4006",
-            "status": "Pending"
-        }
-    ],
-    "custodial_estimated_fee": null,
-    "outbound_fee": null,
-    "deferred_fee": null,
-    "signers": [],
-    "replaced_by": null,
-    "fueled_by": null,
-    "message": null,
-    "rbf_enable": false,
-    "delegate_tx": false,
-    "is_from_fee_station_tx": false,
-    "vault_id": "2e81bcdb-3ca3-4f3d-be22-b39ac34437f7",
-    "project_id": null,
-    "confirmations": [],
-    "actions": [],
-    "from_type": null,
-    "from_sub_wallet": null,
-    "to_type": null,
-    "from_wallet_id": null,
-    "to_wallet_id": null,
-    "to_sub_wallet": null,
-    "commission_fees": [],
-    "is_for_sign": false,
-    "header_title": "Transaction: Approver Approval",
-    "show_info": {
-        "org_name": "Cobo",
-        "wallet_name": "Default wallet 08996",
-        "environment": "Prod",
-        "from_address_label": "0xAe17bB62a5dfF598ceD2671BA6E7E320ec9e460A",
-        "to_address_label": "",
-        "to_address_labels": []
+    {
+      "status": "PendingScreening",
+      "finished": true,
+      "finished_timestamp": 1754360933464,
+      "sub_status": ""
+    },
+    {
+      "status": "PendingAuthorization",
+      "finished": false,
+      "finished_timestamp": 1754360935339,
+      "sub_status": ""
+    },
+    {
+      "status": "Rejected",
+      "finished": true,
+      "finished_timestamp": 1754360971000,
+      "sub_status": ""
     }
+  ],
+  "org_id": "7be252a6-9778-4972-947b-5965f4793d90",
+  "from_info": "Default wallet 08996",
+  "to_info": "",
+  "calldata_info": null,
+  "approvers": [
+    {
+      "name": "zhuyoucou+5388",
+      "status": "Rejected"
+    },
+    {
+      "name": "zhuyoucou+4006",
+      "status": "Pending"
+    }
+  ],
+  "custodial_estimated_fee": null,
+  "outbound_fee": null,
+  "deferred_fee": null,
+  "signers": [],
+  "replaced_by": null,
+  "fueled_by": null,
+  "message": null,
+  "rbf_enable": false,
+  "delegate_tx": false,
+  "is_from_fee_station_tx": false,
+  "vault_id": "2e81bcdb-3ca3-4f3d-be22-b39ac34437f7",
+  "project_id": null,
+  "confirmations": [],
+  "actions": [],
+  "from_type": null,
+  "from_sub_wallet": null,
+  "to_type": null,
+  "from_wallet_id": null,
+  "to_wallet_id": null,
+  "to_sub_wallet": null,
+  "commission_fees": [],
+  "is_for_sign": false,
+  "header_title": "Transaction: Approver Approval",
+  "show_info": {
+    "org_name": "Cobo",
+    "wallet_name": "Default wallet 08996",
+    "environment": "Prod",
+    "from_address_label": "0xAe17bB62a5dfF598ceD2671BA6E7E320ec9e460A",
+    "to_address_label": "",
+    "to_address_labels": []
+  },
+  "created_time": 1747221732,
+  "expired_time": 0,
+  "statement_uuid": "uuid-abc-123",
+  "template_version": "1.0.0"
 }

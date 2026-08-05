@@ -1,172 +1,181 @@
 {
-    "transaction_id": "552dd186-3be4-4242-950b-2116b5082e2f",
+  "transaction_id": "552dd186-3be4-4242-950b-2116b5082e2f",
+  "wallet_id": "fbecfe11-aa62-495c-ad17-68a7c5c476c0",
+  "type": "Unstake",
+  "status": "Completed",
+  "initiator_type": "App",
+  "source": {
+    "source_type": "Org-Controlled",
     "wallet_id": "fbecfe11-aa62-495c-ad17-68a7c5c476c0",
-    "type": "Unstake",
-    "status": "Completed",
-    "initiator_type": "App",
-    "source": {
-        "source_type": "Org-Controlled",
-        "wallet_id": "fbecfe11-aa62-495c-ad17-68a7c5c476c0",
-        "address": "tb1p8qxcaynngukpkfalhgd3h8xj9s0cpg43m46y6gu2rkqtjkwkd3rsw95vwh",
-        "included_utxos": null,
-        "excluded_utxos": null,
-        "signer_key_share_holder_group_id": "93469078-3aa0-44b0-87ca-e2c2156cb421"
+    "address": "tb1p8qxcaynngukpkfalhgd3h8xj9s0cpg43m46y6gu2rkqtjkwkd3rsw95vwh",
+    "included_utxos": null,
+    "excluded_utxos": null,
+    "signer_key_share_holder_group_id": "93469078-3aa0-44b0-87ca-e2c2156cb421"
+  },
+  "destination": {
+    "destination_type": "Address",
+    "account_output": {
+      "address": "tb1p8qxcaynngukpkfalhgd3h8xj9s0cpg43m46y6gu2rkqtjkwkd3rsw95vwh",
+      "amount": "0",
+      "memo": null
     },
-    "destination": {
-        "destination_type": "Address",
-        "account_output": {
-            "address": "tb1p8qxcaynngukpkfalhgd3h8xj9s0cpg43m46y6gu2rkqtjkwkd3rsw95vwh",
-            "amount": "0",
-            "memo": null
-        },
-        "utxo_outputs": null,
-        "change_address": null,
-        "force_internal": false,
-        "force_external": false
-    },
-    "created_timestamp": 1748315794511,
-    "updated_timestamp": 1748317548957,
-    "cobo_id": "20250527111634000308604000005455",
-    "request_id": "Staking-withdraw-3b5bfbce-3cd1-4be1-bd26-cac1028a3563",
-    "sub_status": null,
-    "failed_reason": null,
-    "chain_id": "SIGNET_BTC",
+    "utxo_outputs": null,
+    "change_address": null,
+    "force_internal": false,
+    "force_external": false
+  },
+  "created_timestamp": 1748315794511,
+  "updated_timestamp": 1748317548957,
+  "cobo_id": "20250527111634000308604000005455",
+  "request_id": "Staking-withdraw-3b5bfbce-3cd1-4be1-bd26-cac1028a3563",
+  "sub_status": null,
+  "failed_reason": null,
+  "chain_id": "SIGNET_BTC",
+  "token_id": "SIGNET_BTC",
+  "asset_id": null,
+  "result": null,
+  "fee": {
+    "fee_type": "UTXO",
     "token_id": "SIGNET_BTC",
-    "asset_id": null,
-    "result": null,
-    "fee": {
-        "fee_type": "UTXO",
-        "token_id": "SIGNET_BTC",
-        "fee_used": "0.00000725",
-        "estimated_fee_used": "0.00000725",
-        "max_fee_amount": "0.00000725",
-        "fee_rate": "5",
-        "token_symbol": "SIGNET_BTC"
-    },
-    "initiator": "Staking",
-    "confirmed_num": 3,
-    "confirming_threshold": 3,
-    "transaction_hash": "19851ebdbc2adc74021aca226bf76ac44de9ee9bdd2faf0311c47ec822fad5b5",
-    "block_info": {
-        "block_number": 253687,
-        "block_timestamp": 1748316537000,
-        "block_hash": "00000005c69863c6262131f052d7281fe00e0b6407215e422356f1cf1cfcd71b"
-    },
-    "raw_tx_info": {
-        "used_nonce": null,
-        "selected_utxos": [
-            {
-                "tx_hash": "076fc82e95689682be78fab3c4e7702d518d55a8cb27a34bc3bdffe058c9b62d",
-                "vout_n": 0,
-                "address": "tb1p8qxcaynngukpkfalhgd3h8xj9s0cpg43m46y6gu2rkqtjkwkd3rsw95vwh",
-                "value": "0.0004",
-                "redeem_script": null,
-                "revealed_script": "0x20380d8e9273472c1b27bfba1b1b9cd22c1f80a2b1dd744d238a1d80b959d66c47ad02f003b2"
-            }
-        ],
-        "raw_tx": "020000000001012db6c958e0ffbdc34ba327cba8558d512d70e7c4b3fa78be829668952ec86f070000000000f0030000016b99000000000000225120380d8e9273472c1b27bfba1b1b9cd22c1f80a2b1dd744d238a1d80b959d66c47034030c316a2f06e2fb6c43c166197ae771dadeacfccfef8e9e1d0a49e679807529978a748c8dd3eb23812c7658d44a83dab78011341b76bb357e18bca9579fad42b2620380d8e9273472c1b27bfba1b1b9cd22c1f80a2b1dd744d238a1d80b959d66c47ad02f003b241c050929b74c1a04954b78b4b6035e97a5e078a5a0f28ec96d547bfee9ace803ac0093dd3a20d48e841c5c220bbb661687eb14df5c9dbf309c9ef7d27f78180372000000000",
-        "unsigned_raw_tx": null,
-        "utxo_change": null
-    },
-    "replacement": null,
-    "fueling_info": null,
-    "category": [],
-    "cobo_category": [
-        "StakingBabylonWithdraw"
+    "fee_used": "0.00000725",
+    "estimated_fee_used": "0.00000725",
+    "max_fee_amount": "0.00000725",
+    "fee_rate": "5",
+    "token_symbol": "SIGNET_BTC"
+  },
+  "initiator": "Staking",
+  "confirmed_num": 3,
+  "confirming_threshold": 3,
+  "transaction_hash": "19851ebdbc2adc74021aca226bf76ac44de9ee9bdd2faf0311c47ec822fad5b5",
+  "block_info": {
+    "block_number": 253687,
+    "block_timestamp": 1748316537000,
+    "block_hash": "00000005c69863c6262131f052d7281fe00e0b6407215e422356f1cf1cfcd71b"
+  },
+  "raw_tx_info": {
+    "used_nonce": null,
+    "selected_utxos": [
+      {
+        "tx_hash": "076fc82e95689682be78fab3c4e7702d518d55a8cb27a34bc3bdffe058c9b62d",
+        "vout_n": 0,
+        "address": "tb1p8qxcaynngukpkfalhgd3h8xj9s0cpg43m46y6gu2rkqtjkwkd3rsw95vwh",
+        "value": "0.0004",
+        "redeem_script": null,
+        "revealed_script": "0x20380d8e9273472c1b27bfba1b1b9cd22c1f80a2b1dd744d238a1d80b959d66c47ad02f003b2"
+      }
     ],
-    "description": "",
-    "is_loop": false,
-    "extra": null,
-    "timeline": [
-        {
-            "status": "Submitted",
-            "finished": true,
-            "finished_timestamp": 1748315794000,
-            "sub_status": ""
-        },
-        {
-            "status": "PendingAuthorization",
-            "finished": true,
-            "finished_timestamp": 1748315794979,
-            "sub_status": ""
-        },
-        {
-            "status": "PendingSignature",
-            "finished": true,
-            "finished_timestamp": 1748315832000,
-            "sub_status": ""
-        },
-        {
-            "status": "Broadcasting",
-            "finished": true,
-            "finished_timestamp": 1748315836000,
-            "sub_status": ""
-        },
-        {
-            "status": "Confirming",
-            "finished": true,
-            "finished_timestamp": 1748317027000,
-            "sub_status": ""
-        },
-        {
-            "status": "Completed",
-            "finished": true,
-            "finished_timestamp": 1748317548000,
-            "sub_status": ""
-        }
-    ],
-    "org_id": "f926907c-8141-4cc2-9d12-7808590e2167",
-    "from_info": "Staking APP\u6d4b\u8bd5",
-    "to_info": "Staking APP\u6d4b\u8bd5",
-    "calldata_info": null,
-    "approvers": [],
-    "custodial_estimated_fee": null,
-    "outbound_fee": null,
-    "deferred_fee": null,
-    "signers": [
-        {
-            "signer": "Cobo",
-            "status": "Signed",
-            "failed_reason": "",
-            "signer_type": 20,
-            "online": true,
-            "node_id": "coboWS6hKma2MxxobbpjB8W2SVmpBiisaBq4rxqVpWJAZpecK"
-        },
-        {
-            "signer": "ming.yang+4006@cobo.com",
-            "status": "Signed",
-            "failed_reason": "",
-            "signer_type": 30,
-            "online": false,
-            "node_id": "coboPRukpHw8eYKJYdz6WqaxiZUWQrTxYwGA3Gyvif8JyXuWW"
-        }
-    ],
-    "replaced_by": null,
-    "fueled_by": null,
-    "message": null,
-    "rbf_enable": false,
-    "delegate_tx": false,
-    "is_from_fee_station_tx": false,
-    "vault_id": "ba6b0cf8-2845-4e5d-b238-ca6d781ffa89",
-    "project_id": null,
-    "confirmations": [],
-    "actions": [],
-    "from_type": null,
-    "from_sub_wallet": null,
-    "to_type": null,
-    "from_wallet_id": null,
-    "to_wallet_id": null,
-    "to_sub_wallet": null,
-    "commission_fees": [],
-    "is_for_sign": false,
-    "header_title": "Transaction: Approver Approval",
-    "show_info": {
-        "org_name": "Cobo",
-        "wallet_name": "Bitcoin Operations Wallet",
-        "environment": "Prod",
-        "from_address_label": "Main Operations Address",
-        "to_address_label": "Multiple Recipients",
-        "total_amount": "3.2",
-        "to_address_labels": ["", "to 2", "to 3", ""]
+    "raw_tx": "020000000001012db6c958e0ffbdc34ba327cba8558d512d70e7c4b3fa78be829668952ec86f070000000000f0030000016b99000000000000225120380d8e9273472c1b27bfba1b1b9cd22c1f80a2b1dd744d238a1d80b959d66c47034030c316a2f06e2fb6c43c166197ae771dadeacfccfef8e9e1d0a49e679807529978a748c8dd3eb23812c7658d44a83dab78011341b76bb357e18bca9579fad42b2620380d8e9273472c1b27bfba1b1b9cd22c1f80a2b1dd744d238a1d80b959d66c47ad02f003b241c050929b74c1a04954b78b4b6035e97a5e078a5a0f28ec96d547bfee9ace803ac0093dd3a20d48e841c5c220bbb661687eb14df5c9dbf309c9ef7d27f78180372000000000",
+    "unsigned_raw_tx": null,
+    "utxo_change": null
+  },
+  "replacement": null,
+  "fueling_info": null,
+  "category": [],
+  "cobo_category": [
+    "StakingBabylonWithdraw"
+  ],
+  "description": "",
+  "is_loop": false,
+  "extra": null,
+  "timeline": [
+    {
+      "status": "Submitted",
+      "finished": true,
+      "finished_timestamp": 1748315794000,
+      "sub_status": ""
+    },
+    {
+      "status": "PendingAuthorization",
+      "finished": true,
+      "finished_timestamp": 1748315794979,
+      "sub_status": ""
+    },
+    {
+      "status": "PendingSignature",
+      "finished": true,
+      "finished_timestamp": 1748315832000,
+      "sub_status": ""
+    },
+    {
+      "status": "Broadcasting",
+      "finished": true,
+      "finished_timestamp": 1748315836000,
+      "sub_status": ""
+    },
+    {
+      "status": "Confirming",
+      "finished": true,
+      "finished_timestamp": 1748317027000,
+      "sub_status": ""
+    },
+    {
+      "status": "Completed",
+      "finished": true,
+      "finished_timestamp": 1748317548000,
+      "sub_status": ""
     }
+  ],
+  "org_id": "f926907c-8141-4cc2-9d12-7808590e2167",
+  "from_info": "Staking APP测试",
+  "to_info": "Staking APP测试",
+  "calldata_info": null,
+  "approvers": [],
+  "custodial_estimated_fee": null,
+  "outbound_fee": null,
+  "deferred_fee": null,
+  "signers": [
+    {
+      "signer": "Cobo",
+      "status": "Signed",
+      "failed_reason": "",
+      "signer_type": 20,
+      "online": true,
+      "node_id": "coboWS6hKma2MxxobbpjB8W2SVmpBiisaBq4rxqVpWJAZpecK"
+    },
+    {
+      "signer": "ming.yang+4006@cobo.com",
+      "status": "Signed",
+      "failed_reason": "",
+      "signer_type": 30,
+      "online": false,
+      "node_id": "coboPRukpHw8eYKJYdz6WqaxiZUWQrTxYwGA3Gyvif8JyXuWW"
+    }
+  ],
+  "replaced_by": null,
+  "fueled_by": null,
+  "message": null,
+  "rbf_enable": false,
+  "delegate_tx": false,
+  "is_from_fee_station_tx": false,
+  "vault_id": "ba6b0cf8-2845-4e5d-b238-ca6d781ffa89",
+  "project_id": null,
+  "confirmations": [],
+  "actions": [],
+  "from_type": null,
+  "from_sub_wallet": null,
+  "to_type": null,
+  "from_wallet_id": null,
+  "to_wallet_id": null,
+  "to_sub_wallet": null,
+  "commission_fees": [],
+  "is_for_sign": false,
+  "header_title": "Transaction: Approver Approval",
+  "show_info": {
+    "org_name": "Cobo",
+    "wallet_name": "Bitcoin Operations Wallet",
+    "environment": "Prod",
+    "from_address_label": "Main Operations Address",
+    "to_address_label": "Multiple Recipients",
+    "total_amount": "3.2",
+    "to_address_labels": [
+      "",
+      "to 2",
+      "to 3",
+      ""
+    ]
+  },
+  "created_time": 1747221732,
+  "expired_time": 0,
+  "statement_uuid": "uuid-abc-123",
+  "template_version": "1.0.0"
 }

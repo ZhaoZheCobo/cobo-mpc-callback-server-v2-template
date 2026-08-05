@@ -5,8 +5,10 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"math/big"
 	"regexp"
 	"sort"
+	"strconv"
 	"strings"
 	"sync"
 
@@ -39,6 +41,50 @@ func (pythonNone) MarshalJSON() ([]byte, error) {
 func isPythonNone(val interface{}) bool {
 	_, ok := val.(pythonNone)
 	return ok
+}
+
+// isPythonFalsy mirrors Python truthiness for the JSON-decoded types that can
+// appear in biz_data, matching the "if x" guards in cobo-libs' toList1/toList2/
+// toRules filter definitions (statement_template.py _reset_env_filters).
+func isPythonFalsy(val interface{}) bool {
+	switch v := val.(type) {
+	case nil:
+		return true
+	case pythonNone:
+		return true
+	case bool:
+		return !v
+	case string:
+		return v == ""
+	case float64:
+		return v == 0
+	case int:
+		return v == 0
+	case []interface{}:
+		return len(v) == 0
+	case map[string]interface{}:
+		return len(v) == 0
+	default:
+		return false
+	}
+}
+
+// pythonStr mirrors Python's str(v) for the cases these filters actually
+// stringify: None -> "None", bools capitalized, everything else as-is.
+func pythonStr(val interface{}) string {
+	switch v := val.(type) {
+	case nil:
+		return "None"
+	case pythonNone:
+		return "None"
+	case bool:
+		if v {
+			return "True"
+		}
+		return "False"
+	default:
+		return fmt.Sprintf("%v", v)
+	}
 }
 
 var (
@@ -173,17 +219,30 @@ func getGonjaFilters() map[string]exec.FilterFunction {
 			}
 		},
 		"toInt": func(e *exec.Evaluator, in *exec.Value, params *exec.VarArgs) *exec.Value {
+			// Match Python's int(v): raise (here, an error Value that aborts
+			// rendering) on anything that doesn't parse, and preserve full
+			// precision for integers too large for int64 rather than silently
+			// truncating to 0.
 			switch val := in.Interface().(type) {
 			case float64:
 				return exec.AsValue(int(val))
 			case int:
 				return exec.AsValue(val)
-			case string:
-				var result int
-				fmt.Sscanf(val, "%d", &result)
-				return exec.AsValue(result)
-			default:
+			case bool:
+				if val {
+					return exec.AsValue(1)
+				}
 				return exec.AsValue(0)
+			case string:
+				if n, err := strconv.ParseInt(val, 10, 64); err == nil {
+					return exec.AsValue(int(n))
+				}
+				if bigVal, ok := new(big.Int).SetString(val, 10); ok {
+					return exec.AsValue(bigVal)
+				}
+				return exec.AsValue(fmt.Errorf("toInt: invalid literal for int(): %q", val))
+			default:
+				return exec.AsValue(fmt.Errorf("toInt: unsupported type %T for int()", val))
 			}
 		},
 		"len": func(e *exec.Evaluator, in *exec.Value, params *exec.VarArgs) *exec.Value {
@@ -198,12 +257,14 @@ func getGonjaFilters() map[string]exec.FilterFunction {
 				return exec.AsValue(0)
 			}
 		},
+		// toList1 mirrors Python: [str(x) for x in v if x] - drops every
+		// falsy item (None, "", 0, False, ...), not just None.
 		"toList1": func(e *exec.Evaluator, in *exec.Value, params *exec.VarArgs) *exec.Value {
 			if slice, ok := in.Interface().([]interface{}); ok {
-				var result []string
+				result := []string{}
 				for _, item := range slice {
-					if item != nil && !isPythonNone(item) {
-						result = append(result, fmt.Sprintf("%v", item))
+					if !isPythonFalsy(item) {
+						result = append(result, pythonStr(item))
 					}
 				}
 				bytes, _ := json.Marshal(result)
@@ -211,42 +272,47 @@ func getGonjaFilters() map[string]exec.FilterFunction {
 			}
 			return exec.AsValue("[]")
 		},
+		// toList2 mirrors Python: [[str(x) for x in row if x is not None] for row in v if row]
+		// - the outer filter drops falsy rows (checked before any inner
+		// filtering), the inner filter drops only None (keeping "", 0, False).
 		"toList2": func(e *exec.Evaluator, in *exec.Value, params *exec.VarArgs) *exec.Value {
 			if slice, ok := in.Interface().([]interface{}); ok {
-				var result [][]string
+				result := [][]string{}
 				for _, row := range slice {
-					if rowSlice, ok := row.([]interface{}); ok {
-						var rowResult []string
-						for _, item := range rowSlice {
-							if item != nil && !isPythonNone(item) {
-								rowResult = append(rowResult, fmt.Sprintf("%v", item))
-							}
-						}
-						if len(rowResult) > 0 {
-							result = append(result, rowResult)
-						}
+					rowSlice, ok := row.([]interface{})
+					if !ok || isPythonFalsy(row) {
+						continue
 					}
+					rowResult := []string{}
+					for _, item := range rowSlice {
+						if item == nil || isPythonNone(item) {
+							continue
+						}
+						rowResult = append(rowResult, pythonStr(item))
+					}
+					result = append(result, rowResult)
 				}
 				bytes, _ := json.Marshal(result)
 				return exec.AsValue(string(bytes))
 			}
 			return exec.AsValue("[]")
 		},
+		// toRules mirrors Python: [{str(k): str(v) for k, v in x.items()} for x in v if x]
+		// - the outer filter drops falsy dicts (e.g. {}); every key/value pair
+		// in a surviving dict is kept and stringified, including None -> "None".
 		"toRules": func(e *exec.Evaluator, in *exec.Value, params *exec.VarArgs) *exec.Value {
 			if slice, ok := in.Interface().([]interface{}); ok {
-				var result []map[string]string
+				result := []map[string]string{}
 				for _, item := range slice {
-					if mapItem, ok := item.(map[string]interface{}); ok {
-						ruleMap := make(map[string]string)
-						for k, v := range mapItem {
-							if v != nil && !isPythonNone(v) {
-								ruleMap[k] = fmt.Sprintf("%v", v)
-							}
-						}
-						if len(ruleMap) > 0 {
-							result = append(result, ruleMap)
-						}
+					mapItem, ok := item.(map[string]interface{})
+					if !ok || isPythonFalsy(item) {
+						continue
 					}
+					ruleMap := make(map[string]string, len(mapItem))
+					for k, v := range mapItem {
+						ruleMap[k] = pythonStr(v)
+					}
+					result = append(result, ruleMap)
 				}
 				bytes, _ := json.Marshal(result)
 				return exec.AsValue(string(bytes))
