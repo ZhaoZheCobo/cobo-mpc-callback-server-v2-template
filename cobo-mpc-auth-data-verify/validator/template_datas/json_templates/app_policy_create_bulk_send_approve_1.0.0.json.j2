@@ -1,0 +1,95 @@
+{
+  "_theme": "structured",
+  "_biz_version": {{ template_version | toString }},
+  "header": {
+    "title": {{ header_title | toString }},
+    "title_icon": "https://d.cobo.com/public/logos/transaction_guard_icon.png"
+  },
+  "body": {
+    "components": [
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Organization",
+            "data": {
+              "value": {{ org_name | toString }},
+              "label": {{ environment | toString }}
+            }
+          },
+          {
+            "_component_type": "date_time",
+            "key": "Created Time",
+            "data": {
+              "value": {{ bulk_send_created_time | toInt }}
+            }
+          }
+        ]
+      },
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "key": "Bulk Send ID",
+            "data": {
+              "value": {{ bulk_send_id | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Remark",
+            "data": {
+              "value": {{ remark | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Source Account",
+            "data": {
+              "value": {{ source_account | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Total Amount",
+            "data": {
+              "value": {{ total_amount | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Token Breakdown",
+            "data": {
+              "value": {{ token_breakdown | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Number of Transactions",
+            "data": {
+              "value": {{ number_of_transactions | toString }}
+            }
+          }
+          {% if number_of_transactions | toInt <= 200 %}
+          ,
+          {
+            "_component_type": "table",
+            "key": "Transaction Details",
+            "data": {
+              "thead": [
+                "To Address",
+                "Amount",
+                "Note"
+              ],
+              "tbody": {{ transaction_details | toList2 }}
+            }
+          }
+          {% endif %}
+        ]
+      }
+    ]
+  }
+}

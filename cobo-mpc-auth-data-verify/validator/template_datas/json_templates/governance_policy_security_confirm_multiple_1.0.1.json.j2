@@ -1,0 +1,189 @@
+{
+  "_theme": "structured",
+  "_biz_version": {{ template_version | toString }},
+  "header": {
+    "title": {{ header_title | toString }},
+    "title_icon": "https://d.cobo.com/public/logos/business_guard_icon.png"
+  },
+  "body": {
+    "components": [
+      {
+        "_component_type": "notification",
+        "data": {
+          "content": {{ notification_content | toString }}
+        }
+      },
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "paragraph",
+            "_is_in_list": true,
+            "key": "Blocking Reason",
+            "data":  [{{ blocking_reason | toString }}]
+          },
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Organization",
+            "data": {
+              "value": {{ org_name | toString }},
+              "label": {{ environment | toString }}
+            }
+          },
+          {
+            "_component_type": "date_time",
+            "key": "Created Time",
+            "data": {
+              "value": {{ created_time | toInt }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Total Transacitons",
+            "data": {
+              "value": {{ total_transactions | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Message ID",
+            "data": {
+              "value": {{ statement_uuid | toString }}
+            }
+          }
+        ]
+      },
+      {
+        "_component_type": "section",
+        "components": [
+          {% for item in items %}
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "Request ID",
+            "data": {
+              "value": {{ item.request_id | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "From",
+            "data": {
+              "label": {{ item.show_info.from_address_label | toString }},
+              "value": {{ item.source.address | toString }}
+            }
+          },
+          {% set has_account_output = item.destination.get("account_output") %}
+          {% set has_single_utxo = item.destination.get("utxo_outputs") and (item.destination.utxo_outputs | len) == 1 %}
+          {% if has_account_output or has_single_utxo %}
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "To",
+            "data": {
+              "label": {{ item.show_info.to_address_label | toString }},
+              {% if item.destination.get("account_output") and item.destination.account_output.get("memo") %}
+              "value": {{ (item.destination.account_output.address ~ "|" ~ item.destination.account_output.memo) | toString }}
+              {% elif item.destination.get("account_output") %}
+              "value": {{ item.destination.account_output.address | toString }}
+              {% else %}
+              "value": {{ item.destination.utxo_outputs[0].address | toString }}
+              {% endif %}
+            }
+          }
+          {% endif %}
+          {% if item.destination.get("utxo_outputs") and (item.destination.utxo_outputs | len) > 1 %}
+          {% for output in item.destination.utxo_outputs %}
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            {% if loop.index == 1 %}
+            "key": "To",
+            {% endif %}
+            "data": {
+              "value": {{ output.address | toString }},
+              "sub_value": {{ (output.amount ~ " " ~ item.token_id) | toString }}
+            }
+          }{% if not loop.last %},{% endif %}
+          {% endfor %}
+          {% endif %},
+          {% if item.destination.get("account_output") or (item.destination.get("utxo_outputs") and (item.destination.utxo_outputs | len) == 1) %}
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": false,
+              "is_large_size": true,
+              "is_bold": true
+            },
+            "key": "Value",
+            "data": {
+              {% if item.destination.get("account_output") %}
+              "value": {{ (item.destination.account_output.amount ~ " " ~ item.token_id) | toString }}
+              {% elif item.destination.get("utxo_outputs") and (item.destination.utxo_outputs | len) == 1 %}
+              "value": {{ (item.destination.utxo_outputs[0].amount ~ " " ~ item.token_id) | toString }}
+              {% endif %}
+            }
+          },
+          {% endif %}
+          {% if item.destination.get("utxo_outputs") and (item.destination.utxo_outputs | len) > 1 %}
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": false,
+              "is_large_size": true,
+              "is_bold": true
+            },
+            "key": "Value",
+            "data": {
+              "value": {{ (item.show_info.total_amount ~ " " ~ item.token_id) | toString }}
+            }
+          },
+          {% endif %}
+          {
+          "_component_type": "horizontal_line",
+          "_style": {
+              "color": "E8E9EB",
+              "size": 1,
+              "margin": {
+                  "top": 0,
+                  "bottom": 0
+              }
+            }
+          }{% if not loop.last %},{% endif %}
+          {% endfor %}
+        ]
+      }
+    ]
+  }
+}

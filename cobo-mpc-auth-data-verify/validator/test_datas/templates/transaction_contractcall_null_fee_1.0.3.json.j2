@@ -1,0 +1,406 @@
+{
+  "_theme": "structured",
+  "_biz_version": {{ template_version | toString }},
+  {% if is_for_sign %}
+  "_post_actions": [
+    {
+        "type": "sign_message",
+        "data": {
+            "transaction_id": {{ transaction_id | toString }},
+            "transaction_type": {{ type | toString }}
+        }
+    }
+  ],
+  {% endif %}
+  "header": {
+    "title": {{ header_title | toString }},
+    "title_icon": "https://d.cobo.com/public/logos/transaction_guard_icon.png"
+  },
+  "body": {
+    "components": [
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Organization",
+            "data": {
+              "value": {{ show_info.org_name | toString }},
+              "label": {{ show_info.environment | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Source",
+            "data": {
+              "value": {{ show_info.wallet_name | toString }},
+              "label": {{ source.source_type | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Initiator",
+            "data": {
+              "value": {{ initiator | toString }}
+            }
+          },
+          {
+            "_component_type": "date_time",
+            "key": "Created Time",
+            "data": {
+              "value": {{ created_time | toInt }}
+            }
+          },
+          {% if expired_time %}
+          {
+            "_component_type": "date_time",
+            "key": "Expired Time",
+            "data": {
+              "value": {{ expired_time | toInt }}
+            }
+          },
+          {% endif %}
+          {
+            "_component_type": "text",
+            "key": "Message ID",
+            "data": {
+              "value": {{ statement_uuid | toString }}
+            }
+          }
+        ]
+      },
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "key": "Transaction Type",
+            "data": {
+              "value": {{ type | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Chain",
+            "data": {
+              "value": {{ chain_id | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "Transaction ID",
+            "data": {
+              "value": {{ transaction_id | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "Request ID",
+            "data": {
+              "value": {{ request_id | toString }}
+            }
+          }
+        ]
+      },
+       {% if show_info.get("connection_type") %}
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "key": "Connection Type",
+            "data": {
+              "value": {{ show_info.connection_type | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Connected dApp",
+            "data": {
+              "value": {{ show_info.dapp_name | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "dApp URL",
+            "data": {
+              "value": {{ show_info.dapp_domain | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "Session ID",
+            "data": {
+              "value": {{ show_info.session_id | toString }}
+            }
+          }
+        ]
+      },
+      {% endif %}
+
+      {% if destination.destination_type != "SOL_Contract" and destination.destination_type != "COSMOS_Contract" %}
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "From",
+            "data": {
+              "label": {{ show_info.from_address_label | toString }},
+              "value": {{ source.address | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "To/Interact with",
+            "data": {
+              "label": {{ show_info.to_address_label | toString }},
+              "value": {{ destination.get("address", "") | toString }}
+            }
+          }
+        ]
+      },
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": false,
+              "is_large_size": true,
+              "is_bold": true
+            },
+            "key": "Value",
+            "data": {
+              "value": {{ (destination.get("value", "0") ~ " " ~ chain_id) | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Estimated Fee",
+            "data": {
+              "value": {{ (fee.estimated_fee_used ~ " " ~ fee.token_id) | toString }}
+            }
+          }
+          {% if fee.get("max_fee_amount") %},
+          {
+            "_component_type": "text",
+            "key": "Max Fee",
+            "data": {
+              "value": {{ (fee.max_fee_amount ~ " " ~ fee.token_id) | toString }}
+            }
+          }
+          {% endif %}
+        ]
+      }
+      {% if destination.get("calldata_info") %},
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "call_data_tab_panel",
+            "_actions": [
+              "copy"
+            ],
+            "key": "Input Data",
+            "data": {
+              "call_data_info": {{ destination.calldata_info | toString }},
+              "call_data": {{ destination.calldata | toString }}
+            }
+          }
+        ]
+      }
+      {% endif %}
+      {% if show_info.get("tables") %},
+       {
+         "_component_type": "section",
+         "components": [
+         {
+           "_component_type": "table",
+           "_style": {
+             "is_highlighted": false,
+             "is_large_size": false,
+             "is_bold": false
+           },
+           "key": "Payout Details",
+           "data": {
+             "thead": [
+               "To Address",
+               "Amount"
+             ],
+             "tbody": {{ show_info.get("tables") | toList2 }}
+           }
+          }
+        ]
+      }
+      {% endif %}
+      {% else %}
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "From",
+            "data": {
+              "label": {{ show_info.from_address_label | toString }},
+              "value": {{ source.address | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Estimated Fee",
+            "data": {
+              "value": {{ (fee.estimated_fee_used ~ " " ~ fee.token_id) | toString }}
+            }
+          }
+          {% if fee.get("max_fee_amount") %},
+          {
+            "_component_type": "text",
+            "key": "Max Fee",
+            "data": {
+              "value": {{ (fee.max_fee_amount ~ " " ~ fee.token_id) | toString }}
+            }
+          }
+          {% endif %}
+        ]
+      },
+      {% if destination.destination_type == "SOL_Contract" %}
+        {% for instruction in destination.instructions %}
+          {
+              "_component_type": "section",
+              "components": [
+                  {
+                      "_component_type": "text",
+                      "_style": {"is_highlighted": true},
+                      "_actions": ["copy"],
+                      "key": "Interact with",
+                      "data": {
+                          "value": {{ instruction.program_id | toString }}
+                      }
+                  },
+                  {
+                      "_component_type": "paragraph",
+                      "_style": {"is_highlighted": true},
+                      "_actions": ["copy"],
+                      "key": "Input Accounts",
+                      "data": [
+                          {% for account in instruction.accounts %}
+                          {{ account.pubkey | toString }}{% if not loop.last %},{% endif %}
+                          {% endfor %}
+                      ]
+                  },
+                  {
+                      "_component_type": "paragraph",
+                      "_actions": ["copy"],
+                      "key": "Instruction Data",
+                      "data": [
+                          {{ instruction.data | toString }}
+                      ]
+                  }
+              ]
+          }{% if not loop.last %},{% endif %}
+        {% endfor %}
+      {% elif destination.destination_type == "COSMOS_Contract" %}
+        {% for cosmos_message in destination.cosmos_messages %}
+          {
+              "_component_type": "section",
+              "components": [
+                  {
+                      "_component_type": "text",
+                      "_style": {"is_highlighted": true},
+                      "_actions": ["copy"],
+                      "key": "Type URL",
+                      "data": {
+                          "value": {{ cosmos_message.type_url | toString }}
+                      }
+                  },
+                  {
+                      "_component_type": "paragraph",
+                      "_actions": ["copy"],
+                      "key": "Message",
+                      "data": [
+                          {{ cosmos_message.message | toString }}
+                      ]
+                  }
+              ]
+          }{% if not loop.last %},{% endif %}
+        {% endfor %}
+      {% endif %}
+      {% endif %}
+      {% if description %},
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "paragraph",
+            "_actions": [
+              "copy"
+            ],
+            "key": "Note",
+            "data": [{{ description | toString }}]
+          }
+        ]
+      }
+      {% endif %}
+    ]
+  }
+}

@@ -1,0 +1,192 @@
+{
+  "_theme": "mfa",
+  "_biz_version": {{ template_version | toString }},
+  "header": {
+    "title": "Please confirm if this action was initiated by you",
+    "title_icon": "https://d.cobo.com/public/documents/statement_mfa.png",
+    "components": [
+      {
+        "_component_type": "avatar",
+        "data": {
+          "icon_url": "https://d.cobo.com/public/documents/statement_mfa.png",
+          "text": {{ initiator | toString }}
+        }
+      }
+    ]
+  },
+  "body": {
+    "components": [
+      {
+        "_component_type": "text",
+        "_is_in_list": true,
+        "key": "Action",
+        "data": {
+          "value": "Transfer"
+        }
+      },
+      {
+        "_component_type": "text",
+        "_is_in_list": true,
+        "key": "Organization",
+        "data": {
+          "value": {{ show_info.org_name | toString }},
+          "label": {{ show_info.environment | toString }}
+        }
+      },
+      {
+        "_component_type": "text",
+        "_is_in_list": true,
+        "key": "Initiator",
+        "data": {
+          "value": {{ initiator | toString }}
+        }
+      },
+      {% if expired_time %}
+      {
+        "_component_type": "date_time",
+        "key": "Expired Time",
+        "data": {
+          "value": {{ expired_time | toInt }}
+        }
+      },
+      {% endif %}
+      {
+        "_component_type": "text",
+        "key": "Message ID",
+        "data": {
+          "value": {{ statement_uuid | toString }}
+        }
+      },
+      {
+        "_component_type": "horizontal_line"
+      },
+      {
+        "_component_type": "view_more_panel",
+        "_style": {
+          "default_line": 3
+        },
+        "components": [
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "From",
+            "data": {
+              {% if source.source_type in ["Org-Controlled","User-Controlled","Web3","Safe{Wallet}"] %}
+              "label": {{ show_info.from_address_label | toString }},
+              {% if source.address %}
+              "value": {{ source.address | toString }}
+              {% else %}
+              "value": "Multiple addresses"
+              {% endif %}
+              {% elif source.source_type in ["Asset","Main","Sub"] %}
+              "value": {{ show_info.wallet_name | toString }}
+              {% endif %}
+            }
+          },
+          {% set has_account_output = destination.get("account_output") %}
+          {% set has_single_utxo = destination.get("utxo_outputs") and (destination.utxo_outputs | len) == 1 %}
+          {% if has_account_output or has_single_utxo %}
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": false
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "To",
+            "data": {
+              "label": {{ show_info.to_address_label | toString }},
+              {% if destination.get("account_output") and destination.account_output.get("memo") %}
+              "value": {{ (destination.account_output.address ~ "|" ~ destination.account_output.memo) | toString }}
+              {% elif destination.get("account_output") %}
+              "value": {{ destination.account_output.address | toString }}
+              {% else %}
+              "value": {{ destination.utxo_outputs[0].address | toString }}
+              {% endif %}
+            }
+          },
+          {% endif %}
+          {% if has_account_output or has_single_utxo %}
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": false,
+              "is_large_size": true,
+              "is_bold": true
+            },
+            "key": "Value",
+            "data": {
+              {% if destination.get("account_output") %}
+              "value": {{ (destination.account_output.amount ~ " " ~ token_id) | toString }}
+              {% else %}
+              "value": {{ (destination.utxo_outputs[0].amount ~ " " ~ token_id) | toString }}
+              {% endif %}
+            }
+          },
+          {% endif %}
+          {
+            "_component_type": "text",
+            "_actions": [
+              "copy"
+            ],
+            "key": "Request ID",
+            "data": {
+              "value": {{ request_id | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Chain",
+            "data": {
+              "value": {{ chain_id | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Transaction Type",
+            "data": {
+              "value": {{ type | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Source",
+            "data": {
+              "value": {{ show_info.wallet_name | toString }},
+              "label": {{ source.source_type | toString }}
+            }
+          }
+          {% if fee.get("max_fee_amount") %},
+          {
+            "_component_type": "text",
+            "key": "Max Fee",
+            "data": {
+              "value": {{ (fee.max_fee_amount ~ " " ~ fee.token_id) | toString }}
+            }
+          }
+          {% endif %}
+          {% if description %},
+          {
+            "_component_type": "text_with_popup",
+            "key": "Note",
+            "data": {
+              "value": {{ description | toString }}
+            }
+          }
+          {% endif %}
+        ]
+      }
+    ]
+  }
+}

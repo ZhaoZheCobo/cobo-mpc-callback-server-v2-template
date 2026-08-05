@@ -1,0 +1,171 @@
+{
+  "_theme": "structured",
+  "_biz_version": {{ template_version | toString }},
+  "header": {
+    "title": {{ header_title | toString }},
+    "title_icon": "https://d.cobo.com/public/logos/transaction_guard_icon.png"
+  },
+  "body": {
+    "components": [
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "paragraph",
+            "key": "Blocking Reason",
+            "data": [
+               {{ blocking_reason | toString }}
+            ]
+          },
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Org Name",
+            "data": {
+              "value": {{ org_name | toString }},
+              "label": {{ environment | toString }}
+            }
+          },
+          {
+            "_component_type": "date_time",
+            "key": "Created Time",
+            "data": {
+              "value": {{ request_created_time | toInt }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Message ID",
+            "data": {
+              "value": {{ statement_uuid | toString }}
+            }
+          }
+        ]
+      },
+      {
+        "_component_type": "section",
+        "components": [
+          {
+            "_component_type": "text",
+            "_is_in_list": true,
+            "key": "Order ID",
+            "data": {
+              "value": {{ order_id | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Receivable Crypto Amount",
+            "data": {
+              "value": {{ receivable_crypto_amount | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Payable Amount",
+            "data": {
+              "value": {{ payable_amount | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Transfer Type",
+            "data": {
+              "value": {{ transfer_type | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": true
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "SWIFT/BIC Code",
+            "data": {
+              "value": {{ swift_code | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "_style": {
+              "is_highlighted": true,
+              "is_large_size": false,
+              "is_bold": true
+            },
+            "_actions": [
+              "copy"
+            ],
+            "key": "Receiving Account Number",
+            "data": {
+              "value": {{ account_number | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Beneficiary/Account Name",
+            "data": {
+              "value": {{ beneficiary_name | toString }}
+            }
+          },
+          {
+            "_component_type": "text",
+            "key": "Bank Name",
+            "data": {
+              "value": {{ bank_name | toString }}
+            }
+          }
+          {% if country %},
+          {
+            "_component_type": "text",
+            "key": "Country",
+            "data": {
+              "value": {{ country | toString }}
+            }
+          }
+          {% endif %}
+          {% if beneficiary_address %},
+          {
+            "_component_type": "text",
+            "key": "Beneficiary/Account Address",
+            "data": {
+              "value": {{ beneficiary_address | toString }}
+            }
+          }
+          {% endif %}
+          {% if charge_bearer %},
+          {
+            "_component_type": "text",
+            "key": "Charge Bearer",
+            "data": {
+              "value": {{ charge_bearer | toString }}
+            }
+          }
+          {% endif %}
+          {% if bank_fees %},
+          {
+            "_component_type": "text",
+            "key": "Bank Fees",
+            "data": {
+              "value": {{ bank_fees | toString }}
+            }
+          }
+          {% endif %}
+          {% if intermediary_bank %},
+          {
+            "_component_type": "text",
+            "key": "Intermediary Bank BIC",
+            "data": {
+              "value": {{ intermediary_bank | toString }}
+            }
+          }
+          {% endif %}
+        ]
+      }
+    ]
+  }
+}

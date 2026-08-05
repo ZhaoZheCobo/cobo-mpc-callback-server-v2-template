@@ -5,8 +5,10 @@ import (
 	"crypto/sha256"
 	"encoding/json"
 	"fmt"
+	"regexp"
 	"sort"
 	"strings"
+	"sync"
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/nikolalohinski/gonja/v2"
@@ -24,6 +26,122 @@ func NewStatementBuilder(template string) *StatementBuilder {
 	}
 }
 
+type pythonNone struct{}
+
+func (pythonNone) String() string {
+	return "None"
+}
+
+func (pythonNone) MarshalJSON() ([]byte, error) {
+	return []byte("null"), nil
+}
+
+func isPythonNone(val interface{}) bool {
+	_, ok := val.(pythonNone)
+	return ok
+}
+
+var (
+	templateOutputExprPattern = regexp.MustCompile(`\{\{\s*(.*?)\s*\}\}`)
+	templateBlockExprPattern  = regexp.MustCompile(`\{%\s*(.*?)\s*%\}`)
+	dottedPathPattern         = regexp.MustCompile(`\b[A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)+\b`)
+	dictGetPathPattern        = regexp.MustCompile(`\b([A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z_][A-Za-z0-9_]*)*)\.get\(\s*["']([A-Za-z_][A-Za-z0-9_]*)["']`)
+)
+
+// unguardedConcatPathsCache memoizes, per template string, the dotted paths that
+// participate in a "~" concatenation but are never used as an {% if %} guard.
+// The template text is static per StatementBuilder, so re-running the regex scan
+// on every Build() call (i.e. every signature verification) is wasted work.
+var unguardedConcatPathsCache sync.Map // map[string][]string
+
+func prepareDataForPythonJinjaConcat(data map[string]interface{}, template string) map[string]interface{} {
+	for _, path := range getUnguardedConcatPaths(template) {
+		replaceNilPathWithPythonNone(data, strings.Split(path, "."))
+	}
+
+	return data
+}
+
+func getUnguardedConcatPaths(template string) []string {
+	if cached, ok := unguardedConcatPathsCache.Load(template); ok {
+		return cached.([]string)
+	}
+
+	guardedPaths := collectGuardedTemplatePaths(template)
+	pathSet := make(map[string]struct{})
+	for _, match := range templateOutputExprPattern.FindAllStringSubmatch(template, -1) {
+		if len(match) < 2 || !strings.Contains(match[1], "~") {
+			continue
+		}
+		for _, path := range collectTemplateExpressionPaths(match[1]) {
+			if _, guarded := guardedPaths[path]; !guarded {
+				pathSet[path] = struct{}{}
+			}
+		}
+	}
+
+	paths := make([]string, 0, len(pathSet))
+	for path := range pathSet {
+		paths = append(paths, path)
+	}
+
+	cached, _ := unguardedConcatPathsCache.LoadOrStore(template, paths)
+	return cached.([]string)
+}
+
+func collectGuardedTemplatePaths(template string) map[string]struct{} {
+	paths := make(map[string]struct{})
+	for _, match := range templateBlockExprPattern.FindAllStringSubmatch(template, -1) {
+		if len(match) < 2 {
+			continue
+		}
+		for _, path := range collectTemplateExpressionPaths(match[1]) {
+			paths[path] = struct{}{}
+		}
+	}
+	return paths
+}
+
+func collectTemplateExpressionPaths(expression string) []string {
+	paths := make(map[string]struct{})
+	for _, match := range dictGetPathPattern.FindAllStringSubmatch(expression, -1) {
+		if len(match) == 3 {
+			paths[match[1]+"."+match[2]] = struct{}{}
+		}
+	}
+	for _, path := range dottedPathPattern.FindAllString(expression, -1) {
+		if strings.HasSuffix(path, ".get") {
+			continue
+		}
+		paths[path] = struct{}{}
+	}
+
+	result := make([]string, 0, len(paths))
+	for path := range paths {
+		result = append(result, path)
+	}
+	return result
+}
+
+func replaceNilPathWithPythonNone(data map[string]interface{}, path []string) {
+	if len(path) == 0 {
+		return
+	}
+	current := data
+	for _, key := range path[:len(path)-1] {
+		next, ok := current[key].(map[string]interface{})
+		if !ok {
+			return
+		}
+		current = next
+	}
+
+	last := path[len(path)-1]
+	if value, exists := current[last]; exists && value == nil {
+		current[last] = pythonNone{}
+	}
+}
+
 // getGonjaFilters returns a list of custom filters to be used with Gonja
 func getGonjaFilters() map[string]exec.FilterFunction {
 	return map[string]exec.FilterFunction{
@@ -32,6 +150,7 @@ func getGonjaFilters() map[string]exec.FilterFunction {
 
 			// Match Python logic:
 			// - If it's an int or float, convert to string first, then JSON marshal
+			// - If it's Python None, preserve JSON null for direct toString rendering
 			// - Otherwise, directly marshal the value
 			switch v := val.(type) {
 			case int:
@@ -39,12 +158,14 @@ func getGonjaFilters() map[string]exec.FilterFunction {
 				str := fmt.Sprintf("%v", v)
 				bytes, _ := json.Marshal(str)
 				return exec.AsValue(string(bytes))
+			case pythonNone:
+				return exec.AsValue("null")
 			case float64:
 				// For floats, convert to string representation, then JSON marshal
 				str := fmt.Sprintf("%v", v)
 				bytes, _ := json.Marshal(str)
 				return exec.AsValue(string(bytes))
-			
+
 			default:
 				// For all other types (string, bool, nil, arrays), directly marshal to JSON
 				bytes, _ := json.Marshal(val)
@@ -81,7 +202,7 @@ func getGonjaFilters() map[string]exec.FilterFunction {
 			if slice, ok := in.Interface().([]interface{}); ok {
 				var result []string
 				for _, item := range slice {
-					if item != nil {
+					if item != nil && !isPythonNone(item) {
 						result = append(result, fmt.Sprintf("%v", item))
 					}
 				}
@@ -97,7 +218,7 @@ func getGonjaFilters() map[string]exec.FilterFunction {
 					if rowSlice, ok := row.([]interface{}); ok {
 						var rowResult []string
 						for _, item := range rowSlice {
-							if item != nil {
+							if item != nil && !isPythonNone(item) {
 								rowResult = append(rowResult, fmt.Sprintf("%v", item))
 							}
 						}
@@ -118,7 +239,7 @@ func getGonjaFilters() map[string]exec.FilterFunction {
 					if mapItem, ok := item.(map[string]interface{}); ok {
 						ruleMap := make(map[string]string)
 						for k, v := range mapItem {
-							if v != nil {
+							if v != nil && !isPythonNone(v) {
 								ruleMap[k] = fmt.Sprintf("%v", v)
 							}
 						}
@@ -195,6 +316,7 @@ func (s *StatementBuilder) Build(bizData string) (string, error) {
 		fmt.Printf("Error parsing JSON data for build statement: %v\n", err)
 		return "", fmt.Errorf("error parsing JSON data: %w", err)
 	}
+	data = prepareDataForPythonJinjaConcat(data, s.template)
 
 	template, err := getGonjaTemplate(s.template)
 	if err != nil {

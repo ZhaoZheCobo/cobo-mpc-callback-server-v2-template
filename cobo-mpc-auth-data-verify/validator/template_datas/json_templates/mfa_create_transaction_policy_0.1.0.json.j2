@@ -1,0 +1,177 @@
+{
+  "_theme": "mfa",
+  "_biz_version": {{ template_version | toString }},
+  "header": {
+    "title": "Please confirm if this action was initiated by you",
+    "title_icon": "https://d.cobo.com/public/documents/statement_mfa.png",
+    "components": [
+      {
+        "_component_type": "avatar",
+        "data": {
+          "icon_url": "https://d.cobo.com/public/documents/statement_mfa.png",
+          "text": {{ initiator | toString }}
+        }
+      }
+    ]
+  },
+  "body": {
+    "components": [
+      {
+        "_component_type": "text",
+        "key": "Action",
+        "data": {
+          "value": {{ action | toString }}
+        }
+      },
+      {
+        "_component_type": "text",
+        "_is_in_list": true,
+        "key": "Organization",
+        "data": {
+          "value": {{ org_name | toString }},
+          "label": {{ environment | toString }}
+        }
+      },
+      {
+        "_component_type": "date_time",
+        "key": "CreatedTime",
+        "data": {
+          "value": {{ created_time | toInt }}
+        }
+      },
+      {
+        "_component_type": "date_time",
+        "key": "ExpiredTime",
+        "data": {
+          "value": {{ expired_time | toInt }}
+        }
+      },
+      {
+        "_component_type": "text",
+        "key": "Message ID",
+        "data": {
+          "value": {{ statement_uuid | toString }}
+        }
+      },
+      {
+        "_component_type": "horizontal_line"
+      },
+      {
+        "_component_type": "view_more_panel",
+        "_style": {
+          "default_line": 3
+        },
+        "components": [
+          {
+            "_component_type": "text_with_popup",
+            "_style": {
+              "is_highlighted": true
+            },
+            "key": "Policy Name",
+            "data": {
+              "value": {{ policy_name | toString }}
+            }
+          },
+          {
+            "_component_type": "text_with_popup",
+            "_style": {
+              "is_highlighted": true
+            },
+            "key": "Policy Type",
+            "data": {
+              "value": {{ policy_type | toString }}
+            }
+          },
+          {
+            "_component_type": "text_with_popup",
+            "key": "Applicable Wallets",
+            "data": {
+              "value": "{{ applicable_wallets | len }} Wallets",
+              "popup": {
+                "title": "Applicable Wallets",
+                "sub_title": "{{ applicable_wallets | len }} Wallets",
+                "components": [
+                  {% for applicable_wallet in applicable_wallets %}
+                  {
+                    "_component_type": "paragraph",
+                    "data": [{{ applicable_wallet | toString }}]
+                  }{% if not loop.last %},{% endif %}
+                  {% endfor %}
+                ]
+              }
+            }
+          },
+          {
+            "_component_type": "text_with_popup",
+            "key": "Conditions",
+            "data": {
+              {% if conditions %}
+              "popup": {
+                "title": "Conditions",
+                "components": [
+                  {% for condition_type, condition_list in conditions.items() %}
+                  {
+                    "_component_type": "paragraph",
+                    "key": {{ condition_type | toString }},
+                    "data": {{ condition_list | toList1 }}
+                  }{% if not loop.last %},{% endif %}
+                  {% endfor %}
+                ]
+              },
+              {% endif %}
+              "value": {{ conditions_type_names | toString }}
+            }
+          },
+          {
+            "_component_type": "text_with_popup",
+            "key": "Approval",
+            "data": {
+              {% if approval_users %}
+              "popup": {
+                "title": "Approval",
+                "sub_title": {{ approval_desc | toString }},
+                "components": [
+                  {% for approval_user in approval_users %}
+                  {
+                    "_component_type": "card",
+                    "data": {
+                      "title": {{ approval_user['title'] | toString }},
+                      "description": {{ approval_user['description'] | toString }},
+                      "icon": ""
+                    }
+                  }{% if not loop.last %},{% endif %}
+                  {% endfor %}
+                ]
+              },
+              {% endif %}
+              "value": {{ approval_desc | toString }}
+            }
+          },
+          {
+            "_component_type": "text_with_popup",
+            "key": "Policy Priority",
+            "data": {
+              "value": {{ policy_priority | toString }},
+              "popup": {
+                "title": "Policy Priority",
+                "sub_title": {{ policy_priority | toString }},
+                "components": [
+                  {
+                    "_component_type": "table",
+                    "data": {
+                      "thead": [
+                        "Policy Name",
+                        "Priority"
+                      ],
+                      "tbody": {{ policies | toList2 }}
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
